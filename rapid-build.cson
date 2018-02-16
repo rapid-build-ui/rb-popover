@@ -1,0 +1,54 @@
+common:
+	build: server: false
+	browser: open: false, reload: false
+
+	dist:
+		client:
+			paths:
+				absolute: false
+
+	exclude:
+		default:
+			client:
+				files: true
+
+	extra:
+		copy:
+			client: [
+				'package.json'
+			]
+
+	inline:
+		htmlAssets:
+			dev: true
+			enable: true
+
+		jsHtmlImports:
+			client:
+				enable: true
+
+	minify:
+		cacheBust: false
+		html:
+			templateCache: false
+		css:
+			fileName:
+				'rb-popover.css'
+		client:
+			js:
+				es6: true
+				fileName: 'rb-popover.js'
+
+demo:
+	build: server: true
+	browser: open: true, reload: true
+
+	ports:
+		server: 5004
+		reload: 5005
+
+	extra:
+		copy:
+			client: [
+				'node_modules/**'
+			]

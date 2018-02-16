@@ -1,0 +1,36 @@
+{
+	"name": "rb-popover-proj",
+	"version": "0.1.0",
+	"description": "Rapid Build UI - Component Project: rb-popover",
+	"license": "MIT",
+	"engines": {
+		"npm": "5.x",
+		"node": "8.x"
+	},
+	"contributors": [
+		{
+			"name": "Judd Younce",
+			"email": "jyounce@yahoo.com",
+			"url": "https://github.com/jyounce"
+		},
+		{
+			"name": "Yevgeniy Okun",
+			"email": "yevgeniyokun@gmail.com",
+			"url": "https://github.com/yokun"
+		}
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/rapid-build-ui/rb-popover"
+	},
+	"bugs": {
+		"url": "https://github.com/rapid-build-ui/rb-popover/issues"
+	},
+	"scripts": {
+		"link": "cd dist/client/ && yarn link",
+		"unlink": "cd dist/client/ && yarn unlink",
+		"install-client": "cd src/client/ && yarn install --ignore-engines",
+		"install-server": "cd src/server/ && npm install",
+		"setup": "npm run install-client && npm run install-server && rapid-build && npm run unlink ; npm run link"
+	}
+}

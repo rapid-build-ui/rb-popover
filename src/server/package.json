@@ -1,0 +1,29 @@
+{
+	"name": "rb-popover-server",
+	"version": "0.1.0",
+	"description": "Rapid Build UI - Component Server: rb-popover",
+	"license": "MIT",
+	"engines": {
+		"npm": "5.x",
+		"node": "8.x"
+	},
+	"contributors": [
+		{
+			"name": "Judd Younce",
+			"email": "jyounce@yahoo.com",
+			"url": "https://github.com/jyounce"
+		},
+		{
+			"name": "Yevgeniy Okun",
+			"email": "yevgeniyokun@gmail.com",
+			"url": "https://github.com/yokun"
+		}
+	],
+	"scripts": {
+		"start": "node rapid-build/start-server",
+		"stop": "node rapid-build/stop-server"
+	},
+	"dependencies": {
+		"cors": "2.8.4"
+	}
+}
