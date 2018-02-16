@@ -3,4 +3,33 @@
  *********/
 & {
 	display: inline-block;
+	position: relative;
+
+	.popover {
+		position: absolute;
+		z-index: 1;
+    	display: block;
+		background-clip: padding-box;
+		border: 1px solid #d6d8db;
+		border-radius: .3rem;
+    	line-break: auto;
+    	max-width: 276px;
+    	word-break: normal;
+    	word-spacing: normal;
+    	width: max-content;
+
+    	.header {
+			padding: .5rem .75rem;
+			margin: 0;
+			font-size: 1rem;
+			border-bottom: 1px solid #d6d8db;
+			border-top-left-radius: calc(.3rem - 1px);
+			border-top-right-radius: calc(.3rem - 1px);
+    	}
+
+    	.body {
+    		font-size: 14px;
+    		padding: .5rem .75rem;
+    	}
+	}
 }

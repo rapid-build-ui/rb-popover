@@ -1,5 +1,17 @@
-<div class="rb-popover">
-	Hello Popover!
+<div class$="rb-popover [[kind]]">
+	<a href="" on-click="_handleClick" on-mouseover="_handleHover">
+		<rb-icon kind="info-circle" source="solid"></rb-icon>
+	</a>
+	<template is="dom-if" if="{{_show}}">
+		<div class="popover">
+			<template is="dom-if" if="{{caption}}">
+				<h3  class="header">[[caption]]</h3>
+			</template>
+			<div class="body">
+				<slot></slot>
+			</div>
+		</div>
+	</template>
 </div>
 
 <link rel="stylesheet" href="../styles/rb-popover.css">

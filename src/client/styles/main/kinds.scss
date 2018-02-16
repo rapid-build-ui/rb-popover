@@ -2,17 +2,50 @@
  * KINDS
  ********/
 &.default {
-
+	.header {
+		background-color: #f7f7f7;
+	}
+	rb-icon {
+		color: #9faab5;
+	}
 }
 &.success {
-
+	.popover { color: #155724;	}
+	.header { background-color: #d4edda; }
+	rb-icon {
+		color: #218838;
+	}
 }
 &.danger {
-
+	.popover {
+		color: #721c24;
+	}
+	.header {
+		background-color: #f8d7da;
+	}
+	rb-icon {
+		color: #c82333;
+	}
 }
 &.warning {
-
+	.popover {
+		color: #856404;
+	}
+	.header {
+		background-color: #fff3cd;
+	}
+	rb-icon {
+		color: #e0a800;
+	}
 }
 &.info {
-
+	.popover {
+		color: #0c5460;
+	}
+	.header {
+		background-color: #d1ecf1;
+	}
+	rb-icon {
+		color: #138496;
+	}
 }

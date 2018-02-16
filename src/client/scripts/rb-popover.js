@@ -33,8 +33,25 @@ export class RbPopover extends PolymerElement {
 			trigger: {
 				type: String,
 				value: 'click'
+			},
+			_show: {
+				type: Boolean,
+				value: false
 			}
+
 		}
+	}
+
+	/* Event Handlers
+	 *****************/
+	_handleClick(e) { // :void
+		this._show = !this._show;
+		e.preventDefault();
+	}
+
+	_handleHover(e) {
+		if (this.trigger == 'hover')
+			this._show = true;
 	}
 
 	/* Template
