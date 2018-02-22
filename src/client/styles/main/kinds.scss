@@ -2,6 +2,9 @@
  * KINDS
  ********/
 &.default {
+	.popover {
+		color: #5f6e7e;
+	}
 	.header {
 		background-color: $popoverDefault;
 	}
@@ -25,7 +28,8 @@
 	}
 	.header { background-color: $popoverSuccess; }
 	rb-icon {
-		color: #218838;
+		// color: #218838;
+		color: darken($popoverSuccess, 30%);
 	}
 }
 &.danger {
@@ -41,7 +45,7 @@
 		background-color: $popoverDanger;
 	}
 	rb-icon {
-		color: #c82333;
+		color: darken($popoverDanger, 30%);
 	}
 }
 &.warning {
@@ -57,7 +61,7 @@
 		background-color: $popoverWarning;
 	}
 	rb-icon {
-		color: #e0a800;
+		color: darken($popoverWarning, 45%);
 	}
 }
 &.info {
@@ -69,11 +73,10 @@
 			}
 		}
 	}
-
 	.header {
 		background-color: $popoverInfo;
 	}
 	rb-icon {
-		color: #138496;
+		color: darken($popoverInfo, 30%);
 	}
 }

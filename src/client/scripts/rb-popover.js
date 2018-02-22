@@ -105,11 +105,11 @@ export class RbPopover extends PolymerElement {
 	}
 
 	_setRightLeftPositionTop() {
-		this.pointerElm.style.top = (this.popoverElm.offsetTop + 58) + 'px';
+		this.pointerElm.style.top = (this.popoverElm.offsetTop + 59) + 'px';
 		if (this.caption == undefined){ // no caption
-			if (this.popoverElm.offsetHeight < 78){
+			if (this.popoverElm.offsetHeight < 78) {
 				this.popoverElm.style.top = 'calc(50% - 21px)';
-				this.pointerElm.style.top = 'calc(50% - 8px)';
+				this.pointerElm.style.top = 'calc(50% - 12px)';
 			}
 
 		}
