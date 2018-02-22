@@ -14,6 +14,11 @@ export class RbPopover extends PolymerElement {
 
 	ready() {
 		super.ready();
+		this.popoverElm = this.root.querySelector('.popover')
+		this.pointerElm = this.root.querySelector('.pointer')
+		this.triggerElm = this.root.querySelector('rb-icon')
+		this.popoverWidth = this.popoverElm.offsetWidth
+
 	}
 
 	/* Properties
@@ -61,19 +66,18 @@ export class RbPopover extends PolymerElement {
 
 	_setPosition(position, e) {
 		setTimeout(() => {
-			var popover = this.root.querySelector('.popover')
-			var pointer = this.root.querySelector('.pointer')
-
-			pointer.style.top = (popover.offsetTop + 58) + 'px';
-
-
-			if (this.caption == undefined){ // no caption
-				console.log(popover.offsetHeight)
-				if (popover.offsetHeight < 78){
-					popover.style.top = 'calc(50% - 21px)';
-					pointer.style.top = 'calc(50% - 8px)';
-				}
-
+			switch(position) {
+				case 'top':
+				this._setTopPosition()
+					break;
+				case 'bottom':
+					this._setBottomPosition()
+					break;
+				case 'left':
+					this._setLeftPosition()
+					break
+				default:
+					this._setRightPosition()
 			}
 
 		}, 0);
@@ -81,9 +85,38 @@ export class RbPopover extends PolymerElement {
 		return {}
 	}
 
+
+	_setTopPosition() {
+		this.popoverElm.style.left = this.triggerElm.offsetLeft - (this.popoverWidth/2 - 8) + 'px'
+		this.popoverElm.style.top =  this.triggerElm.offsetTop - (this.pointerElm.offsetHeight + this.popoverElm.offsetHeight + 2) + 'px'
+	}
+
+	_setBottomPosition() {
+		this.popoverElm.style.left = this.triggerElm.offsetLeft - (this.popoverWidth/2 - 8) + 'px'
+		this.popoverElm.style.top =  this.offsetHeight + this.pointerElm.offsetHeight + 2 + 'px'
+	}
+	_setLeftPosition() {
+		this._setRightLeftPositionTop();
+		this.popoverElm.style.left = this.triggerElm.offsetLeft - this.popoverWidth - this.pointerElm.offsetWidth - 2 + 'px'
+
+	}
+	_setRightPosition() {
+		this._setRightLeftPositionTop();
+	}
+
+	_setRightLeftPositionTop() {
+		this.pointerElm.style.top = (this.popoverElm.offsetTop + 58) + 'px';
+		if (this.caption == undefined){ // no caption
+			if (this.popoverElm.offsetHeight < 78){
+				this.popoverElm.style.top = 'calc(50% - 21px)';
+				this.pointerElm.style.top = 'calc(50% - 8px)';
+			}
+
+		}
+	}
+
 	_showPopover(show) {
 		if (show) return null;
-
 		return 'hidden';
 	}
 

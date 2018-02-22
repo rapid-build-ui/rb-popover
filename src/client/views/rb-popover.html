@@ -2,7 +2,7 @@
 	<a href="" on-click="_handleClick" on-mouseover="_handleHover">
 		<rb-icon kind="info-circle" source="solid"></rb-icon>
 	</a>
-	<div class$="popover [[_showPopover(_show)]]">
+	<div class$="popover [[position]] [[_showPopover(_show)]]">
 		<em class="pointer"></em>
 		<template is="dom-if" if="{{caption}}">
 			<h3  class="header">[[caption]]</h3>

@@ -3,15 +3,27 @@
  ********/
 &.default {
 	.header {
-		background-color: #f7f7f7;
+		background-color: $popoverDefault;
+	}
+	.popover.bottom {
+		.pointer {
+			border-bottom-color: $popoverDefault;
+		}
 	}
 	rb-icon {
 		color: #9faab5;
 	}
 }
 &.success {
-	.popover { color: #155724;	}
-	.header { background-color: #d4edda; }
+	.popover {
+		color: #155724;
+		&.bottom {
+			.pointer {
+				border-bottom-color: $popoverSuccess;
+			}
+		}
+	}
+	.header { background-color: $popoverSuccess; }
 	rb-icon {
 		color: #218838;
 	}
@@ -19,9 +31,14 @@
 &.danger {
 	.popover {
 		color: #721c24;
+		&.bottom {
+			.pointer {
+				border-bottom-color: $popoverDanger;
+			}
+		}
 	}
 	.header {
-		background-color: #f8d7da;
+		background-color: $popoverDanger;
 	}
 	rb-icon {
 		color: #c82333;
@@ -30,9 +47,14 @@
 &.warning {
 	.popover {
 		color: #856404;
+		&.bottom {
+			.pointer {
+				border-bottom-color: $popoverWarning;
+			}
+		}
 	}
 	.header {
-		background-color: #fff3cd;
+		background-color: $popoverWarning;
 	}
 	rb-icon {
 		color: #e0a800;
@@ -41,9 +63,15 @@
 &.info {
 	.popover {
 		color: #0c5460;
+		&.bottom {
+			.pointer {
+				border-bottom-color: $popoverInfo;
+			}
+		}
 	}
+
 	.header {
-		background-color: #d1ecf1;
+		background-color: $popoverInfo;
 	}
 	rb-icon {
 		color: #138496;

@@ -8,19 +8,21 @@
 		display: none !important;
 	}
 	.popover {
+		background-color: white;
 		position: absolute;
-		z-index: 1;
+		z-index: 1024;
 		display: block;
 		background-clip: padding-box;
 		border: 1px solid #d6d8db;
 		border-radius: .3rem;
+		box-shadow: 0 5px 10px rgba(0,0,0,.2);
 		line-break: auto;
 		max-width: 276px;
 		word-break: normal;
 		word-spacing: normal;
 		width: max-content;
-		top: -28px;
-		left: 32px;
+		top: -29px;
+		left: 34px;
 
 		.header {
 			padding: .1rem .75rem;
@@ -32,39 +34,59 @@
 		}
 
 		.body {
+			min-height: 32px;
 			font-size: 14px;
 			padding: .5rem .75rem;
 		}
 
 		.pointer {
 			position: absolute;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 0 8px 16px 8px;
+			border-color: transparent transparent white transparent;
 			left: -16px;
-			width: 16px;
-			height: 15px;
-			background-color: white;
+			transform: rotate(270deg);
 			&::before {
 				position: relative;
-				top: 3px;
+				top: 7px;
+				left: -5px;
 				display: block;
 				content: '';
 				border-bottom: 1px solid #d6d8db;
-				transform: rotate(-30deg);
+				transform: rotate(63deg);
+				width: 18px;
 			}
 			&::after {
 				position: relative;
-				top: 10px;
+				top: 6px;
+				left: -13px;
 				display: block;
 				content: '';
 				border-top: 1px solid #d6d8db;
-				transform: rotate(30deg);
+				transform: rotate(-63deg);
+				width: 18px;
 			}
-			&.bottom {
-				top: 65px;
+		}
+		&.bottom {
+			.pointer {
+				transform: rotate(0);
+				top: -16px;
 				left: calc(50% - 8px);
-				transform: rotate(270deg);
 			}
-			&.left {
-				top: calc(50% - 8px);
+		}
+		&.top {
+			.pointer {
+				transform: rotate(180deg);
+				left: calc(50% - 8px);
+				top: calc(100%);
+			}
+		}
+		&.left {
+			.pointer {
+				transform: rotate(90deg);
+				left: calc(100%);
 			}
 		}
 	}
