@@ -17,7 +17,6 @@ export class RbPopover extends PolymerElement {
 		this.popoverElm = this.root.querySelector('.popover')
 		this.pointerElm = this.root.querySelector('.pointer')
 		this.triggerElm = this.root.querySelector('rb-icon')
-		this.popoverWidth = this.popoverElm.offsetWidth
 
 	}
 
@@ -40,13 +39,13 @@ export class RbPopover extends PolymerElement {
 				type: String,
 				value: 'click'
 			},
-			_position: {
-				type: Object,
-				computed: '_setPosition(position)'
-			},
+			// _position: {
+			// 	type: Object,
+			// 	computed: '_setPosition(position)'
+			// },
 			_show: {
 				type: Boolean,
-				value: true
+				value: false
 			}
 
 		}
@@ -56,6 +55,7 @@ export class RbPopover extends PolymerElement {
 	 *****************/
 	_handleClick(e) { // :void
 		this._show = !this._show;
+		this._setPosition(this.position)
 		e.preventDefault();
 	}
 
@@ -85,31 +85,39 @@ export class RbPopover extends PolymerElement {
 		return {}
 	}
 
+	_adjustToWindow() {
+		console.log(window.scrollY)
+		console.log(window.screenLeft)
+
+	}
+
 
 	_setTopPosition() {
-		this.popoverElm.style.left = this.triggerElm.offsetLeft - (this.popoverWidth/2 - 8) + 'px'
+		this.popoverElm.style.left = this.triggerElm.offsetLeft - (this.popoverElm.offsetWidth/2 - 8) + 'px'
 		this.popoverElm.style.top =  this.triggerElm.offsetTop - (this.pointerElm.offsetHeight + this.popoverElm.offsetHeight + 2) + 'px'
+		// console.log(this.popoverElm.offsetWidth)
+		// this._adjustToWindow()
 	}
 
 	_setBottomPosition() {
-		this.popoverElm.style.left = this.triggerElm.offsetLeft - (this.popoverWidth/2 - 8) + 'px'
+		this.popoverElm.style.left = this.triggerElm.offsetLeft - (this.popoverElm.offsetWidth/2 - 8) + 'px'
 		this.popoverElm.style.top =  this.offsetHeight + this.pointerElm.offsetHeight + 2 + 'px'
 	}
 	_setLeftPosition() {
 		this._setRightLeftPositionTop();
-		this.popoverElm.style.left = this.triggerElm.offsetLeft - this.popoverWidth - this.pointerElm.offsetWidth - 2 + 'px'
-
+		this.popoverElm.style.left = this.triggerElm.offsetLeft - this.popoverElm.offsetWidth - this.pointerElm.offsetWidth - 2 + 'px'
 	}
+
 	_setRightPosition() {
 		this._setRightLeftPositionTop();
 	}
 
 	_setRightLeftPositionTop() {
-		this.pointerElm.style.top = (this.popoverElm.offsetTop + 59) + 'px';
+		this.pointerElm.style.top = (this.popoverElm.offsetTop + 58) + 'px';
 		if (this.caption == undefined){ // no caption
-			if (this.popoverElm.offsetHeight < 78) {
+			if (this.popoverElm.offsetHeight < 78){
 				this.popoverElm.style.top = 'calc(50% - 21px)';
-				this.pointerElm.style.top = 'calc(50% - 12px)';
+				this.pointerElm.style.top = 'calc(50% - 8px)';
 			}
 
 		}
