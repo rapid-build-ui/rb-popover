@@ -34,8 +34,9 @@
 	"scripts": {
 		"link": "cd dist/client/ && yarn link",
 		"unlink": "cd dist/client/ && yarn unlink",
+		"relink": "npm run link && npm run unlink && npm run link",
 		"install-client": "cd src/client/ && yarn install --ignore-engines",
 		"install-server": "cd src/server/ && npm install",
-		"setup": "npm run install-client && npm run install-server && rapid-build && npm run link"
+		"setup": "npm run install-client && npm run install-server && rapid-build && npm run relink"
 	}
 }
