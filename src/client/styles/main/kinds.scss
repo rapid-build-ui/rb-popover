@@ -8,7 +8,7 @@
 	.header {
 		background-color: $popoverDefault;
 	}
-	.popover.bottom {
+	.popover.bottom.with-caption {
 		.pointer {
 			border-bottom-color: $popoverDefault;
 		}
@@ -20,7 +20,7 @@
 &.success {
 	.popover {
 		color: #155724;
-		&.bottom {
+		&.bottom.with-caption {
 			.pointer {
 				border-bottom-color: $popoverSuccess;
 			}
@@ -35,7 +35,7 @@
 &.danger {
 	.popover {
 		color: #721c24;
-		&.bottom {
+		&.bottom.with-caption {
 			.pointer {
 				border-bottom-color: $popoverDanger;
 			}
@@ -51,7 +51,7 @@
 &.warning {
 	.popover {
 		color: #856404;
-		&.bottom {
+		&.bottom.with-caption {
 			.pointer {
 				border-bottom-color: $popoverWarning;
 			}
@@ -65,7 +65,7 @@
 	}
 }
 &.info {
-	.popover {
+	.popover.with-caption {
 		color: #0c5460;
 		&.bottom {
 			.pointer {

@@ -38,15 +38,10 @@ export class RbPopover extends PolymerElement {
 				type: String,
 				value: 'click'
 			},
-			// _position: {
-			// 	type: Object,
-			// 	computed: '_setPosition(position)'
-			// },
 			_show: {
 				type: Boolean,
 				value: false
 			}
-
 		}
 	}
 
@@ -58,34 +53,54 @@ export class RbPopover extends PolymerElement {
 		this._adjustToWindow();
 	}
 
+	_resetPosition() {
+		this._position = 'right';
+		this.pointerElm.style.top = null;
+		this.popoverElm.style.top = null;
+		this.popoverElm.style.left = null;
+	}
 	_handleHover(e) {
-		if (this.trigger == 'hover')
+		if (this.trigger == 'hover'){
 			this._show = true;
+			this._adjustToWindow();
+		}
+
 	}
 
 	_adjustToWindow() {
 		if (!this._show) {
+			this._resetPosition();
 			return;
 		}
 
 		var winWidth = window.innerWidth;
-		var triggerX = this.getBoundingClientRect().left;
+		var winHeight = window.innerHeight;
 		var popoverX = this.popoverElm.getBoundingClientRect().left;
+		var popoverY = this.popoverElm.getBoundingClientRect().top;
 		var popoverWidth = this.popoverElm.offsetWidth;
+		var popoverHeight = this.popoverElm.offsetHeight;
 
-		console.log(winWidth, popoverX,  triggerX)
 
 		switch (true) {
-			case ((triggerX - popoverWidth - 9) < 0 || popoverX < 0):
-				console.log(1)
+			case ((popoverX - popoverWidth-9) < 0 && popoverX + popoverWidth + 9 > winWidth)://both left and right out of bounce
+				this._setBottomPosition();
+				break;
+			case (popoverX - popoverWidth - 35 < 0):
+				console.log(2)
 				this._setRightPosition();
 				break;
-			case (triggerX + popoverWidth + 9 > winWidth):
-				console.log(2)
+			case (popoverX + popoverWidth + 9 > winWidth):
+				console.log(3)
 				this._setLeftPosition();
 				break;
+			case (popoverY - popoverHeight < 0):
+				this._setBottomPosition();
+				break;
+			case (popoverY + popoverHeight > winHeight):
+				this._setTopPosition();
+				break;
 			default:
-				console.log(3)
+				console.log('default')
 				this._setPosition();
 		}
 
@@ -116,17 +131,15 @@ export class RbPopover extends PolymerElement {
 	_setBottomPosition() {
 		this._position = 'bottom';
 		this.popoverElm.style.left = this.triggerElm.offsetLeft - (this.popoverElm.offsetWidth/2 - 8) + 'px'
-		this.popoverElm.style.top =  this.offsetHeight + this.pointerElm.offsetHeight + 2 + 'px'
+		this.popoverElm.style.top =  this.triggerElm.offsetTop + this.pointerElm.offsetHeight + this.triggerElm.offsetHeight + 'px'
 	}
 	_setLeftPosition() {
-		console.log('left')
 		this._position = 'left';
 		this._setRightLeftPositionTop();
 		this.popoverElm.style.left = this.triggerElm.offsetLeft - this.popoverElm.offsetWidth - this.pointerElm.offsetWidth - 2 + 'px'
 	}
 
 	_setRightPosition() {
-		console.log('right')
 		this._position = 'right';
 		this._setRightLeftPositionTop();
 		this.popoverElm.style.left = this.triggerElm.offsetLeft + this.pointerElm.offsetWidth + this.triggerElm.offsetWidth + 2 +'px'
@@ -142,6 +155,10 @@ export class RbPopover extends PolymerElement {
 
 		}
 
+	}
+
+	_withCaption() {
+		if(this.caption != undefined) return 'with-caption';
 	}
 
 	_showPopover(show) {
