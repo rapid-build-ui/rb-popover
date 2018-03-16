@@ -10,13 +10,21 @@ export class RbPopover extends PolymerElement {
 	 ************/
 	constructor() {
 		super();
+		this._windowClickListener = this._windowClick.bind(this);
+
 	}
 
-	ready() {
-		super.ready();
+	connectedCallback() {
+		super.connectedCallback();
 		this.popoverElm = this.root.querySelector('.popover')
 		this.pointerElm = this.root.querySelector('.pointer')
 		this.triggerElm = this.root.querySelector('rb-icon')
+		window.addEventListener('click', this._windowClickListener);
+	}
+
+	disconnectedCallback() {
+		super.disconnectedCallback();
+		window.removeEventListener('click', this._windowClickListener);
 	}
 
 	/* Properties
@@ -161,9 +169,19 @@ export class RbPopover extends PolymerElement {
 		if(this.caption != undefined) return 'with-caption';
 	}
 
+
 	_showPopover(show) {
 		if (show) return null;
 		return 'hidden';
+	}
+
+	/* Window Event Handlers
+	 ************************/
+	_windowClick(e) { // :void
+		if (!this._show) return;
+		if (e.path.includes(this.popoverElm)) return;
+		if (e.path.includes(this.triggerElm)) return;
+		this._show = false;
 	}
 
 	/* Template
