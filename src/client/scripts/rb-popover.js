@@ -31,6 +31,10 @@ export class RbPopover extends PolymerElement {
 			caption: {
 				type: String
 			},
+			hover: {
+				type: Boolean,
+				value: false
+			},
 			kind: {
 				type: String,
 				value: 'default'
@@ -38,10 +42,6 @@ export class RbPopover extends PolymerElement {
 			position: {
 				type: String,
 				value: 'right'
-			},
-			trigger: {
-				type: String,
-				value: 'click'
 			},
 			_hidden: {
 				type: Boolean,
@@ -159,7 +159,7 @@ export class RbPopover extends PolymerElement {
 		this._adjustToWindow();
 	}
 	_handleHover(e) {
-		if (this.trigger != 'hover') return;
+		if (!this.hover) return;
 		if (!this._hidden) return;
 		this._hidden = false;
 		this._adjustToWindow();
