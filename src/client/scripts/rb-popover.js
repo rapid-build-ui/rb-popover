@@ -1,7 +1,7 @@
 /*************
  * RB-POPOVER
  *************/
-import { Element as PolymerElement } from '../../../@polymer/polymer/polymer-element.js';
+import { PolymerElement, html } from '../../../@polymer/polymer/polymer-element.js';
 import { DomIf as DomIf } from '../../../@polymer/polymer/lib/elements/dom-if.js';
 import template from '../views/rb-popover.html';
 
@@ -174,7 +174,7 @@ export class RbPopover extends PolymerElement {
 	/* Template
 	 ***********/
 	static get template() { // :string
-		return template;
+		return html template;
 	}
 }
 
