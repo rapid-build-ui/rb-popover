@@ -15,7 +15,7 @@ export class RbPopover extends PolymerElement {
 		super.connectedCallback();
 		this.popoverElm = this.root.querySelector('.popover');
 		this.pointerElm = this.root.querySelector('.pointer');
-		this.triggerElm = this.root.querySelector('rb-icon');
+		this.triggerElm = this.root.querySelector('rb-button');
 		this._windowClickListener = this._windowClick.bind(this);
 		window.addEventListener('click', this._windowClickListener);
 	}

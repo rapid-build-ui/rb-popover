@@ -2,81 +2,82 @@
  * KINDS
  ********/
 &.default {
+	rb-button {
+		color: #9faab5;
+	}
 	.popover {
 		color: #5f6e7e;
-	}
-	.header {
-		background-color: $popoverDefault;
-	}
-	.popover.bottom.with-caption {
-		.pointer {
-			border-bottom-color: $popoverDefault;
+		.header {
+			background-color: $popoverDefault;
 		}
-	}
-	rb-icon {
-		color: #9faab5;
+		&.bottom.with-caption {
+			.pointer {
+				border-bottom-color: $popoverDefault;
+			}
+		}
 	}
 }
 &.success {
+	rb-button {
+		color: darken($popoverSuccess, 30%);
+	}
 	.popover {
 		color: #155724;
+		.header {
+			background-color: $popoverSuccess;
+		}
 		&.bottom.with-caption {
 			.pointer {
 				border-bottom-color: $popoverSuccess;
 			}
 		}
 	}
-	.header { background-color: $popoverSuccess; }
-	rb-icon {
-		// color: #218838;
-		color: darken($popoverSuccess, 30%);
-	}
 }
 &.danger {
+	rb-button {
+		color: darken($popoverDanger, 30%);
+	}
 	.popover {
 		color: #721c24;
+		.header {
+			background-color: $popoverDanger;
+		}
 		&.bottom.with-caption {
 			.pointer {
 				border-bottom-color: $popoverDanger;
 			}
 		}
 	}
-	.header {
-		background-color: $popoverDanger;
-	}
-	rb-icon {
-		color: darken($popoverDanger, 30%);
-	}
 }
 &.warning {
+	rb-button {
+		color: darken($popoverWarning, 45%);
+	}
 	.popover {
 		color: #856404;
+		.header {
+			background-color: $popoverWarning;
+		}
 		&.bottom.with-caption {
 			.pointer {
 				border-bottom-color: $popoverWarning;
 			}
 		}
 	}
-	.header {
-		background-color: $popoverWarning;
-	}
-	rb-icon {
-		color: darken($popoverWarning, 45%);
-	}
 }
 &.info {
-	.popover.with-caption {
+	rb-button {
+		color: darken($popoverInfo, 30%);
+	}
+	.popover {
 		color: #0c5460;
-		&.bottom {
+		.header {
+			background-color: $popoverInfo;
+		}
+		&.bottom.with-caption {
 			.pointer {
 				border-bottom-color: $popoverInfo;
 			}
 		}
-	}
-	.header {
-		background-color: $popoverInfo;
-	}
-	rb-icon {
-		color: darken($popoverInfo, 30%);
 	}
 }
