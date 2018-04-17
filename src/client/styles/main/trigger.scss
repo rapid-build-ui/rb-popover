@@ -6,3 +6,12 @@ rb-button {
 		opacity: .6;
 	}
 }
+
+&.unstyled {
+	rb-button {
+		color: inherit;
+		&:hover {
+			opacity: inherit;
+		}
+	}
+}

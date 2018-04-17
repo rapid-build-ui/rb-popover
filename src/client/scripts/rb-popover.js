@@ -35,14 +35,6 @@ export class RbPopover extends PolymerElement {
 				type: Boolean,
 				value: false
 			},
-			kind: {
-				type: String,
-				value: 'default'
-			},
-			position: {
-				type: String,
-				value: 'right'
-			},
 			icon: {
 				type: String,
 				value: 'info-circle'
@@ -53,6 +45,18 @@ export class RbPopover extends PolymerElement {
 			// },
 			iconSource: {
 				type: String,
+			},
+			kind: {
+				type: String,
+				value: 'default'
+			},
+			position: {
+				type: String,
+				value: 'right'
+			},
+			unstyled: {
+				type: Boolean,
+				value: false
 			},
 			_hidden: {
 				type: Boolean,
@@ -67,11 +71,14 @@ export class RbPopover extends PolymerElement {
 		if (!this.getAttribute('icon')) return 'solid';
 		return iconSource;
 	}
+	_hidePopover(hidden) {
+		return hidden ? 'hidden' : null;
+	}
 	_withCaption(caption) {
 		return !!caption ? 'with-caption' : null;
 	}
-	_hidePopover(hidden) {
-		return hidden ? 'hidden' : null
+	_unstyled(unstyled) {
+		return unstyled ? 'unstyled' : null;
 	}
 
 	/* Position Helpers
