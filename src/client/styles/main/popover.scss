@@ -1,0 +1,46 @@
+/**********
+ * POPOVER
+ **********/
+.popover {
+	position: absolute;
+	z-index: 1060;
+	top: -29px;
+	left: 34px;
+	width: max-content;
+	max-width: 276px;
+	cursor: auto;
+	border: 1px solid #ddd;
+	border-radius: .3rem;
+	background-color: white;
+	background-clip: padding-box;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+	line-break: auto;
+	word-break: normal;
+	word-spacing: normal;
+	transition: opacity .15s linear;
+
+	&.hidden {
+		opacity: 0;
+		visibility: hidden;
+		transition: visibility 0s linear .15s, opacity .15s linear;
+	}
+
+	.header {
+		margin: 0;
+		padding: remy(6) remy(12) remy(4);
+		font-size: remy(13);
+		letter-spacing: .1px;
+		text-transform: uppercase;
+		text-shadow: 1px 1px 4px white;
+		border-bottom: 1px solid #ddd;
+		border-top-left-radius: calc(.3rem - 1px);
+		border-top-right-radius: calc(.3rem - 1px);
+	}
+
+	.body {
+		padding: remy(8) remy(12) remy(13);
+		min-height: 21px;
+		font-size: 14px;
+	}
+}
+

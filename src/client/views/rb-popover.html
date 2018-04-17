@@ -6,8 +6,8 @@
 		on-mouseover="_handleHover"
 		icon-source="[[_iconSource(icon, iconSource)]]">
 	</rb-button>
-	<div class$="popover [[_position]] [[_hidePopover(_hidden)]] [[_withCaption(caption)]]">
-		<em class="pointer"></em>
+	<div class$="popover [[_hidePopover(_hidden)]] [[_withCaption(caption)]]">
+		<em class$="pointer [[_position]]"></em>
 		<template is="dom-if" if="{{caption}}">
 			<h3 class="header">[[caption]]</h3>
 		</template>
