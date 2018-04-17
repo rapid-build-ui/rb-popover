@@ -31,6 +31,10 @@ export class RbPopover extends PolymerElement {
 			caption: {
 				type: String
 			},
+			fitContent: {
+				type: Boolean,
+				value: false
+			},
 			hover: {
 				type: Boolean,
 				value: false
@@ -67,6 +71,9 @@ export class RbPopover extends PolymerElement {
 
 	/* Computed Bindings
 	 ********************/
+	_fitContent(fitContent) {
+		return fitContent ? 'fit-content' : null;
+	}
 	_iconSource(icon, iconSource) {
 		if (!this.getAttribute('icon')) return 'solid';
 		return iconSource;

@@ -1,4 +1,9 @@
-<div class$="rb-popover [[kind]] [[_unstyled(unstyled)]]">
+<div class$="
+	rb-popover
+	[[kind]]
+	[[_unstyled(unstyled)]]
+	[[_withCaption(caption)]]
+	[[_fitContent(fitContent)]]">
 	<rb-button
 		kind="text"
 		icon="[[icon]]"
@@ -6,7 +11,7 @@
 		on-mouseover="_handleHover"
 		icon-source="[[_iconSource(icon, iconSource)]]">
 	</rb-button>
-	<div class$="popover [[_hidePopover(_hidden)]] [[_withCaption(caption)]]">
+	<div class$="popover [[_hidePopover(_hidden)]]">
 		<em class$="pointer [[_position]]"></em>
 		<template is="dom-if" if="{{caption}}">
 			<h3 class="header">[[caption]]</h3>

@@ -44,3 +44,11 @@
 	}
 }
 
+/* Options
+ **********/
+&.fit-content {
+	.popover {
+		max-width: none;
+	}
+}
+

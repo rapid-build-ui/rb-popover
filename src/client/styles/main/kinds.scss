@@ -10,11 +10,9 @@
 		.header {
 			background-color: $popoverDefault;
 		}
-		&.bottom.with-caption {
-			.pointer {
-				border-bottom-color: $popoverDefault;
-			}
-		}
+	}
+	&.with-caption .pointer.bottom {
+		border-bottom-color: $popoverDefault;
 	}
 }
 &.success {
@@ -26,11 +24,9 @@
 		.header {
 			background-color: $popoverSuccess;
 		}
-		&.bottom.with-caption {
-			.pointer {
-				border-bottom-color: $popoverSuccess;
-			}
-		}
+	}
+	&.with-caption .pointer.bottom {
+		border-bottom-color: $popoverSuccess;
 	}
 }
 &.danger {
@@ -42,11 +38,9 @@
 		.header {
 			background-color: $popoverDanger;
 		}
-		&.bottom.with-caption {
-			.pointer {
-				border-bottom-color: $popoverDanger;
-			}
-		}
+	}
+	&.with-caption .pointer.bottom {
+		border-bottom-color: $popoverDanger;
 	}
 }
 &.warning {
@@ -58,11 +52,9 @@
 		.header {
 			background-color: $popoverWarning;
 		}
-		&.bottom.with-caption {
-			.pointer {
-				border-bottom-color: $popoverWarning;
-			}
-		}
+	}
+	&.with-caption .pointer.bottom {
+		border-bottom-color: $popoverWarning;
 	}
 }
 &.info {
@@ -74,10 +66,8 @@
 		.header {
 			background-color: $popoverInfo;
 		}
-		&.bottom.with-caption {
-			.pointer {
-				border-bottom-color: $popoverInfo;
-			}
-		}
+	}
+	&.with-caption .pointer.bottom {
+		border-bottom-color: $popoverInfo;
 	}
 }
