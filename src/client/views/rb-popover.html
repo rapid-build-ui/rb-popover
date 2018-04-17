@@ -1,12 +1,11 @@
 <div class$="rb-popover [[kind]]">
 	<rb-button
 		kind="text"
-		icon="info-circle"
-		icon-source="solid"
+		icon="[[icon]]"
 		on-click="_handleClick"
-		on-mouseover="_handleHover">
+		on-mouseover="_handleHover"
+		icon-source="[[_iconSource(icon, iconSource)]]">
 	</rb-button>
-
 	<div class$="popover [[_position]] [[_hidePopover(_hidden)]] [[_withCaption(caption)]]">
 		<em class="pointer"></em>
 		<template is="dom-if" if="{{caption}}">

@@ -43,6 +43,17 @@ export class RbPopover extends PolymerElement {
 				type: String,
 				value: 'right'
 			},
+			icon: {
+				type: String,
+				value: 'info-circle'
+			},
+			// TODO: fix positioning for big icon
+			// iconSize: {
+			// 	type: Number
+			// },
+			iconSource: {
+				type: String,
+			},
 			_hidden: {
 				type: Boolean,
 				value: true
@@ -52,6 +63,10 @@ export class RbPopover extends PolymerElement {
 
 	/* Computed Bindings
 	 ********************/
+	_iconSource(icon, iconSource) {
+		if (!this.getAttribute('icon')) return 'solid';
+		return iconSource;
+	}
 	_withCaption(caption) {
 		return !!caption ? 'with-caption' : null;
 	}
