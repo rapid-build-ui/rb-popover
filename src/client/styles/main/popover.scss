@@ -20,7 +20,10 @@
 	transition: opacity .15s linear;
 
 	&.hidden {
+		width: 0;
+		height: 0;
 		opacity: 0;
+		overflow: hidden;
 		visibility: hidden;
 		transition: visibility 0s linear .15s, opacity .15s linear;
 	}
