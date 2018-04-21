@@ -1,8 +1,8 @@
 {
 	"name": "@rapid-build-ui/rb-popover",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"main": "scripts/rb-popover.js",
-	"description": "Rapid Build UI Component: rb-popover",
+	"description": "Rapid Build UI Web Component: rb-popover",
 	"license": "MIT",
 	"engines": {
 		"npm": "5.x",
@@ -34,6 +34,7 @@
 	},
 	"flat": true,
 	"dependencies": {
-		"@polymer/polymer": "next"
+		"@polymer/polymer": "next",
+		"@rapid-build-ui/rb-button": "^0.0.1"
 	}
 }
