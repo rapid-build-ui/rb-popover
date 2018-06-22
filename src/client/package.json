@@ -1,40 +1,43 @@
 {
-	"name": "@rapid-build-ui/rb-popover",
-	"version": "0.0.3",
-	"main": "scripts/rb-popover.js",
-	"description": "Rapid Build UI Web Component: rb-popover",
-	"license": "MIT",
-	"engines": {
-		"npm": "5.x",
-		"node": "8.x"
-	},
-	"contributors": [
-		{
-			"name": "Judd Younce",
-			"email": "jyounce@yahoo.com",
-			"url": "https://github.com/jyounce"
-		},
-		{
-			"name": "Yevgeniy Okun",
-			"email": "yevgeniyokun@gmail.com",
-			"url": "https://github.com/yokun"
-		},
-		{
-			"name": "Alina Younce",
-			"email": "crisan_alina2003@yahoo.com",
-			"url": "https://github.com/ayounce"
-		}
-	],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/rapid-build-ui/rb-popover"
-	},
-	"bugs": {
-		"url": "https://github.com/rapid-build-ui/rb-popover/issues"
-	},
-	"flat": true,
-	"dependencies": {
-		"@polymer/polymer": "^3",
-		"@rapid-build-ui/rb-button": "^0.0.2"
-	}
+  "name": "@rapid-build-ui/rb-popover",
+  "version": "0.0.3",
+  "main": "scripts/rb-popover.js",
+  "description": "Rapid Build UI Web Component: rb-popover",
+  "license": "MIT",
+  "engines": {
+    "node": "8.x",
+    "npm": "6.x"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "contributors": [
+    {
+      "name": "Judd Younce",
+      "email": "jyounce@yahoo.com",
+      "url": "https://github.com/jyounce"
+    },
+    {
+      "name": "Yevgeniy Okun",
+      "email": "yevgeniyokun@gmail.com",
+      "url": "https://github.com/yokun"
+    },
+    {
+      "name": "Alina Younce",
+      "email": "crisan_alina2003@yahoo.com",
+      "url": "https://github.com/ayounce"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rapid-build-ui/rb-popover"
+  },
+  "bugs": {
+    "url": "https://github.com/rapid-build-ui/rb-popover/issues"
+  },
+  "flat": true,
+  "dependencies": {
+    "@polymer/polymer": "^3",
+    "@rapid-build-ui/rb-button": "^0.0.4"
+  }
 }
