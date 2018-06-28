@@ -153,8 +153,9 @@ export class RbPopover extends withComponent(withRenderer()) {
 	}
 	_windowClick(e) { // :void
 		if (!this.showPopover) return;
-		if (e.path.includes(this.popoverElm)) return;
-		if (e.path.includes(this.triggerElm)) return;
+		const path = e.composedPath();
+		if (path.includes(this.popoverElm)) return;
+		if (path.includes(this.triggerElm)) return;
 		this.showPopover = false;
 	}
 
