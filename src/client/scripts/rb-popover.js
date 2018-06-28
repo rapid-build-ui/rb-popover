@@ -1,123 +1,84 @@
 /*************
  * RB-POPOVER
  *************/
-import { PolymerElement, html } from '../../../@polymer/polymer/polymer-element.js';
-import { DomIf as DomIf } from '../../../@polymer/polymer/lib/elements/dom-if.js';
+import { props, withComponent } from '../../../skatejs/dist/esnext/index.js';
+import { html, withRenderer } from './renderer.js';
 import '../../rb-button/scripts/rb-button.js';
 import template from '../views/rb-popover.html';
 
-export class RbPopover extends PolymerElement {
+export class RbPopover extends withComponent(withRenderer()) {
 	/* Lifecycle
 	 ************/
 	constructor() {
 		super();
+		this.state = {
+			position: null
+		};
 	}
-	connectedCallback() {
-		super.connectedCallback();
-		this.popoverElm = this.root.querySelector('.popover');
-		this.pointerElm = this.root.querySelector('.pointer');
-		this.triggerElm = this.root.querySelector('rb-button');
-		this._windowClickListener = this._windowClick.bind(this);
-		window.addEventListener('click', this._windowClickListener);
+	connected() {
+		setTimeout(() => { // (timeout to ensure template is rendered)
+			this.popoverElm = this.shadowRoot.querySelector('.popover');
+			this.pointerElm = this.shadowRoot.querySelector('.pointer');
+			this.triggerElm = this.shadowRoot.querySelector('rb-button');
+			this._windowClickListener = this._windowClick.bind(this);
+			window.addEventListener('click', this._windowClickListener);
+		});
 	}
-	disconnectedCallback() {
-		super.disconnectedCallback();
+	disconnected() {
 		window.removeEventListener('click', this._windowClickListener);
 	}
 
 	/* Properties
 	 *************/
-	static get properties() {
+	static get props() {
 		return {
-			caption: {
-				type: String
-			},
-			fitContent: {
-				type: Boolean,
-				value: false
-			},
-			hover: {
-				type: Boolean,
-				value: false
-			},
-			icon: {
-				type: String,
-				value: 'info-circle'
-			},
-			// TODO: fix positioning for big icon
-			// iconSize: {
-			// 	type: Number
-			// },
-			iconSource: {
-				type: String,
-			},
-			kind: {
-				type: String,
-				value: 'default'
-			},
-			position: {
-				type: String,
-				value: 'right'
-			},
-			unstyled: {
-				type: Boolean,
-				value: false
-			},
-			_hidden: {
-				type: Boolean,
-				value: true
-			}
+			caption: props.string,
+			fitContent: props.boolean,
+			hover: props.boolean,
+			kind: props.string,
+			position: Object.assign({}, props.string, {
+				default: 'right'
+			}),
+			showPopover: Object.assign({}, props.boolean, {
+				deserialize(val) {
+					return /^true$/i.test(val);;
+				}
+			}),
+			unstyled: props.boolean,
+			icon: props.string,
+			// iconSize: props.number, // TODO: fix positioning for big icon
+			iconSource: props.string
 		}
-	}
-
-	/* Computed Bindings
-	 ********************/
-	_fitContent(fitContent) {
-		return fitContent ? 'fit-content' : null;
-	}
-	_iconSource(icon, iconSource) {
-		if (!this.getAttribute('icon')) return 'solid';
-		return iconSource;
-	}
-	_hidePopover(hidden) {
-		return hidden ? 'hidden' : null;
-	}
-	_withCaption(caption) {
-		return !!caption ? 'with-caption' : null;
-	}
-	_unstyled(unstyled) {
-		return unstyled ? 'unstyled' : null;
 	}
 
 	/* Position Helpers
 	 *******************/
 	_resetPosition() {
-		this._position = 'right';
+		this.state.position = this.position;
 		this.pointerElm.style.top  = null;
 		this.popoverElm.style.top  = null;
 		this.popoverElm.style.left = null;
 	}
 
-	_adjustToWindow() {
+	_adjustToWindow() { // :void
+		if (!this.popoverElm) return;
 		this._resetPosition();
 
-		var winWidth      = window.innerWidth;
-		var winHeight     = window.innerHeight;
-		var popoverX      = this.popoverElm.getBoundingClientRect().left;
-		var popoverY      = this.popoverElm.getBoundingClientRect().top;
-		var popoverWidth  = this.popoverElm.offsetWidth;
-		var popoverHeight = this.popoverElm.offsetHeight;
+		const winWidth      = window.innerWidth;
+		const winHeight     = window.innerHeight;
+		const popoverX      = this.popoverElm.getBoundingClientRect().left;
+		const popoverY      = this.popoverElm.getBoundingClientRect().top;
+		const popoverWidth  = this.popoverElm.offsetWidth;
+		const popoverHeight = this.popoverElm.offsetHeight;
 
 		switch (true) {
 			case ((popoverX - popoverWidth-9) < 0 && popoverX + popoverWidth + 9 > winWidth)://both left and right out of bounce
 				this._setBottomPosition();
 				break;
 			case (popoverX - popoverWidth - 35 < 0):
-				// console.log(2)
 				this._setRightPosition();
 				break;
 			case (popoverX + popoverWidth + 9 > winWidth):
-				// console.log(3)
 				this._setLeftPosition();
 				break;
 			case (popoverY - popoverHeight < 0):
@@ -127,12 +88,11 @@ export class RbPopover extends PolymerElement {
 				this._setTopPosition();
 				break;
 			default:
-				// console.log('default')
 				this._setPosition();
 		}
 	}
 
-	_setPosition() {
+	_setPosition() { // :void
 		switch (this.position) {
 			case 'left':
 				this._setLeftPosition();
@@ -148,34 +108,34 @@ export class RbPopover extends PolymerElement {
 		}
 	}
 
-	_setTopPosition() {
-		this._position = 'top';
+	_setTopPosition() { // :void
+		this.state.position = 'top';
 		this.popoverElm.style.left = this.triggerElm.offsetLeft - (this.popoverElm.offsetWidth/2 - 8) + 'px'
 		this.popoverElm.style.top =  this.triggerElm.offsetTop - (this.pointerElm.offsetHeight + this.popoverElm.offsetHeight + 2) + 'px'
 	}
 
-	_setBottomPosition() {
-		this._position = 'bottom';
+	_setBottomPosition() { // :void
+		this.state.position = 'bottom';
 		this.popoverElm.style.left = this.triggerElm.offsetLeft - (this.popoverElm.offsetWidth/2 - 8) + 'px'
 		this.popoverElm.style.top =  this.triggerElm.offsetTop + this.pointerElm.offsetHeight + this.triggerElm.offsetHeight + 'px'
 	}
 
-	_setLeftPosition() {
-		this._position = 'left';
+	_setLeftPosition() { // :void
+		this.state.position = 'left';
 		this._setRightLeftPositionTop();
 		this.popoverElm.style.left = this.triggerElm.offsetLeft - this.popoverElm.offsetWidth - this.pointerElm.offsetWidth - 2 + 'px'
 	}
 
-	_setRightPosition() {
-		this._position = 'right';
+	_setRightPosition() { // :void
+		this.state.position = 'right';
 		this._setRightLeftPositionTop();
 		this.popoverElm.style.left = this.triggerElm.offsetLeft + this.pointerElm.offsetWidth + this.triggerElm.offsetWidth + 2 +'px'
 	}
 
-	_setRightLeftPositionTop() {
+	_setRightLeftPositionTop() { // :void
 		this.pointerElm.style.top = (this.popoverElm.offsetTop + 58) + 'px';
-		// no caption
 		if (!!this.caption) return;
+		// no caption scenario
 		if (this.popoverElm.offsetHeight > 78) return;
 		this.popoverElm.style.top = 'calc(50% - 21px)';
 		this.pointerElm.style.top = 'calc(50% - 10px)';
@@ -184,26 +144,35 @@ export class RbPopover extends PolymerElement {
 	/* Event Handlers
 	 *****************/
 	_handleClick(e) { // :void
-		e.preventDefault();
-		this._hidden = !this._hidden;
-		this._adjustToWindow();
+		this.showPopover = !this.showPopover;
 	}
-	_handleHover(e) {
+	_handleHover(e) { // :void
 		if (!this.hover) return;
-		if (!this._hidden) return;
-		this._hidden = false;
-		this._adjustToWindow();
+		if (this.showPopover) return;
+		this.showPopover = true;
 	}
 	_windowClick(e) { // :void
-		if (this._hidden) return;
+		if (!this.showPopover) return;
 		if (e.path.includes(this.popoverElm)) return;
 		if (e.path.includes(this.triggerElm)) return;
-		this._hidden = true;
+		this.showPopover = false;
+	}
+
+	/* Observer
+	 ***********/
+	updating(prevProps) {
+		// console.log(prevProps.showPopover, this.showPopover);
+		if (!this.showPopover) return;
+		if (prevProps.showPopover === this.showPopover) return;
+		setTimeout(() => { // (timeout to ensure popover has dimensions)
+			this._adjustToWindow();
+			this.triggerUpdate();
+		})
 	}
 
 	/* Template
 	 ***********/
-	static get template() { // :string
+	render({ props, state }) { // :string
 		return html template;
 	}
 }
