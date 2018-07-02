@@ -14,7 +14,7 @@ common:
 		from:
 			minFile:
 				scripts: [
-					'scripts/renderer.js'
+					'scripts/!(rb-*.js)'
 				]
 
 	extra:
