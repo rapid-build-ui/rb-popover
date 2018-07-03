@@ -41,7 +41,7 @@ export class RbPopover extends withComponent(withRenderer()) {
 			}),
 			showPopover: Object.assign({}, props.boolean, {
 				deserialize(val) {
-					return /^true$/i.test(val);;
+					return /^true$/i.test(val);
 				}
 			}),
 			unstyled: props.boolean,
