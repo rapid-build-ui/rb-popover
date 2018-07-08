@@ -1,21 +1,19 @@
 <div class$="
 	rb-popover
-	[[kind]]
-	[[_unstyled(unstyled)]]
-	[[_withCaption(caption)]]
-	[[_fitContent(fitContent)]]">
+	${props.kind || 'default'}
+	${props.unstyled ? 'unstyled' : ''}
+	${props.caption ? 'with-caption' : ''}
+	${props.fitContent ? 'fit-content' : ''}">
 	<rb-button
 		kind="text"
-		icon="[[icon]]"
-		on-click="_handleClick"
-		on-mouseover="_handleHover"
-		icon-source="[[_iconSource(icon, iconSource)]]">
+		icon$="${props.icon || 'info-circle'}"
+		icon-source$="${!props.icon ? 'solid' : props.iconSource}"
+		on-click="${this._handleClick.bind(this)}"
+		on-mouseover="${this._handleHover.bind(this)}">
 	</rb-button>
-	<div class$="popover [[_hidePopover(_hidden)]]">
-		<em class$="pointer [[_position]]"></em>
-		<template is="dom-if" if="{{caption}}">
-			<h3 class="header">[[caption]]</h3>
-		</template>
+	<div class$="popover ${props.showPopover ? '' : 'hidden'}">
+		<em class$="pointer ${state.position}"></em>
+		${props.caption ? html`<h3 class="header">${props.caption}</h3>` : null}
 		<div class="body">
 			<slot></slot>
 		</div>

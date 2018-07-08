@@ -11,6 +11,11 @@ common:
 		default:
 			client:
 				files: true
+		from:
+			minFile:
+				scripts: [
+					'scripts/!(rb-*.js)'
+				]
 
 	extra:
 		copy:
