@@ -1,6 +1,6 @@
 {
   "name": "rb-popover-server",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "routes.js",
   "description": "Rapid Build UI Web Component Server: rb-popover",
   "license": "MIT",

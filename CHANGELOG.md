@@ -1,3 +1,12 @@
+## [0.0.6](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.5...v0.0.6) (2018-07-11)
+
+
+### Bug Fixes
+
+* **mobile:** not closing the popover on clickaway ([2cd546a](https://github.com/rapid-build-ui/rb-popover/commit/2cd546a))
+
+
+
 ## [0.0.5](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.4...v0.0.5) (2018-07-08)
 
 
