@@ -3,6 +3,7 @@
  *************/
 import { props, withComponent } from '../../../skatejs/dist/esnext/index.js';
 import { html, withRenderer } from './renderer.js';
+import EventService from './event-service.js';
 import '../../rb-button/scripts/rb-button.js';
 import template from '../views/rb-popover.html';
 
@@ -11,21 +12,20 @@ export class RbPopover extends withComponent(withRenderer()) {
 	 ************/
 	constructor() {
 		super();
+		this.rbEvent = EventService.call(this);
 		this.state = {
 			position: null
 		};
 	}
-	connected() {
-		setTimeout(() => { // (timeout to ensure template is rendered)
-			this.popoverElm = this.shadowRoot.querySelector('.popover');
-			this.pointerElm = this.shadowRoot.querySelector('.pointer');
-			this.triggerElm = this.shadowRoot.querySelector('rb-button');
-			this._windowClickListener = this._windowClick.bind(this);
-			window.addEventListener('click', this._windowClickListener);
-		});
+	viewReady() {
+		super.viewReady && super.viewReady();
+		this.popoverElm = this.shadowRoot.querySelector('.popover');
+		this.pointerElm = this.shadowRoot.querySelector('.pointer');
+		this.triggerElm = this.shadowRoot.querySelector('rb-button');
+		this.rbEvent.add(window, 'window', 'click touchstart', '_windowClick');
 	}
 	disconnected() {
-		window.removeEventListener('click', this._windowClickListener);
+		this.rbEvent.remove(window, 'window', 'click touchstart', '_windowClick');
 	}
 
 	/* Properties

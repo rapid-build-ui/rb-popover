@@ -37,8 +37,8 @@
   },
   "flat": true,
   "dependencies": {
-    "@rapid-build-ui/rb-button": "^0.0.5",
+    "@rapid-build-ui/rb-button": "^0.0.6",
     "lit-html": "^0.10.2",
-    "skatejs": "^5.2.0"
+    "skatejs": "^5.2.1"
   }
 }
