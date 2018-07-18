@@ -1,17 +1,35 @@
 /********
  * KINDS
  ********/
+&.info,
+&.danger,
+&.default,
+&.success,
+&.warning {
+	&.no-caption,
+	&.with-content:not(.bottom) {
+		.popover {
+			.pointer {
+				border-color: transparent transparent white transparent;
+			}
+		}
+	}
+}
+
 &.default {
 	rb-button {
 		color: #9faab5;
 	}
 	.popover {
 		color: #5f6e7e;
-		.header {
+		.caption {
 			background-color: $popoverDefault;
 		}
+		.pointer {
+			border-color: transparent transparent $popoverDefault transparent;
+		}
 	}
-	&.with-caption .pointer.bottom {
+	&.with-caption.bottom .pointer {
 		border-bottom-color: $popoverDefault;
 	}
 }
@@ -21,11 +39,14 @@
 	}
 	.popover {
 		color: #155724;
-		.header {
+		.caption {
 			background-color: $popoverSuccess;
 		}
+		.pointer {
+			border-color: transparent transparent $popoverSuccess transparent;
+		}
 	}
-	&.with-caption .pointer.bottom {
+	&.with-caption.bottom .pointer {
 		border-bottom-color: $popoverSuccess;
 	}
 }
@@ -35,11 +56,14 @@
 	}
 	.popover {
 		color: #721c24;
-		.header {
+		.caption {
 			background-color: $popoverDanger;
 		}
+		.pointer {
+			border-color: transparent transparent $popoverDanger transparent;
+		}
 	}
-	&.with-caption .pointer.bottom {
+	&.with-caption.bottom .pointer {
 		border-bottom-color: $popoverDanger;
 	}
 }
@@ -49,11 +73,14 @@
 	}
 	.popover {
 		color: #856404;
-		.header {
+		.caption {
 			background-color: $popoverWarning;
 		}
+		.pointer {
+			border-color: transparent transparent $popoverWarning transparent;
+		}
 	}
-	&.with-caption .pointer.bottom {
+	&.with-caption.bottom .pointer {
 		border-bottom-color: $popoverWarning;
 	}
 }
@@ -63,11 +90,14 @@
 	}
 	.popover {
 		color: #0c5460;
-		.header {
+		.caption {
 			background-color: $popoverInfo;
 		}
+		.pointer {
+			border-color: transparent transparent $popoverInfo transparent;
+		}
 	}
-	&.with-caption .pointer.bottom {
+	&.with-caption.bottom .pointer {
 		border-bottom-color: $popoverInfo;
 	}
 }

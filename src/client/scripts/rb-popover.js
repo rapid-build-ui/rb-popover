@@ -14,18 +14,39 @@ export class RbPopover extends withComponent(withRenderer()) {
 		super();
 		this.rbEvent = EventService.call(this);
 		this.state = {
-			position: null
+			hasContent: false,
+			// needed to set back original position
+			position: null,
+			// retries to make popover viewable
+			// this prevents infinite loop
+			retries: {
+				cnt: 0,
+				limit: 3,
+				reset() { // :void (mutator: cnt)
+					this.cnt = 0;
+				},
+				isDone() { // :boolean
+					if (this.cnt <= this.limit) return false;
+					this.reset();
+					return true;
+				}
+			}
 		};
 	}
 	viewReady() {
 		super.viewReady && super.viewReady();
-		this.popoverElm = this.shadowRoot.querySelector('.popover');
-		this.pointerElm = this.shadowRoot.querySelector('.pointer');
-		this.triggerElm = this.shadowRoot.querySelector('rb-button');
-		this.rbEvent.add(window, 'window', 'click touchstart', '_windowClick');
+		this.elms = {
+			rbPopover: this.shadowRoot.querySelector('.rb-popover'),
+			trigger:   this.shadowRoot.querySelector('rb-button'),
+			popover:   this.shadowRoot.querySelector('.popover'),
+			pointer:   this.shadowRoot.querySelector('.pointer'),
+			caption:   this.shadowRoot.querySelector('.caption')
+		}
+		this._hasContent(this.shadowRoot.querySelector('slot'));
+		this.rbEvent.add(window, 'window', 'click touchstart', '_windowClickToggle');
 	}
 	disconnected() {
-		this.rbEvent.remove(window, 'window', 'click touchstart', '_windowClick');
+		this.rbEvent.remove(window, 'window', 'click touchstart', '_windowClickToggle');
 	}
 
 	/* Properties
@@ -36,6 +57,10 @@ export class RbPopover extends withComponent(withRenderer()) {
 			fitContent: props.boolean,
 			hover: props.boolean,
 			kind: props.string,
+			unstyled: props.boolean,
+			icon: props.string,
+			iconSize: props.number,
+			iconSource: props.string,
 			position: Object.assign({}, props.string, {
 				default: 'right'
 			}),
@@ -43,137 +68,175 @@ export class RbPopover extends withComponent(withRenderer()) {
 				deserialize(val) {
 					return /^true$/i.test(val);
 				}
-			}),
-			unstyled: props.boolean,
-			icon: props.string,
-			// iconSize: props.number, // TODO: fix positioning for big icon
-			iconSource: props.string
+			})
 		}
 	}
 
-	/* Position Helpers
-	 *******************/
-	_resetPosition() {
-		this.state.position = this.position;
-		this.pointerElm.style.top  = null;
-		this.popoverElm.style.top  = null;
-		this.popoverElm.style.left = null;
+	/* View Updaters
+	 ****************/
+	_updateCssPositionClass(action, position = null) { // :void
+		const cssClasses = action === 'add' ? [position] : ['left','right','top','bottom'];
+		this.elms.rbPopover.classList[action](...cssClasses);
+	}
+	_updateCssTopStyles(action, dims) { // :void
+		if (action === 'remove') {
+			this.elms.pointer.style.top = null;
+			this.elms.popover.style.top = null;
+			return;
+		}
+		// must be positioned left or right and have caption and content (css handles the rest)
+		if (['left','right'].indexOf(this.state.position) === -1) return;
+		if (!(!!this.caption && this.state.hasContent)) return;
+		const coords = this._getPopoverCoords(dims);
+		this.elms.popover.style.top = `${coords.popoverTop}px`;
+		this.elms.pointer.style.top = `${coords.pointerTop}px`;
 	}
 
-	_adjustToWindow() { // :void
-		if (!this.popoverElm) return;
-		this._resetPosition();
+	/* Coordinates & Dimensions
+	 ***************************/
+	_getPopoverCoords(dims) { // :{}
+		return {
+			pointerTop: dims.caption.height,
+			popoverTop: (
+				(dims.trigger.height / 2) -
+				dims.caption.height - dims.pointer.height + 3 // + a little top bumper
+			)
+		}
+	}
+	_getDimensions() { // :{}
+		return {
+			trigger: this.elms.trigger.getBoundingClientRect(),
+			popover: this.elms.popover.getBoundingClientRect(),
+			pointer: this.elms.pointer.getBoundingClientRect(),
+			caption: this.elms.caption && this.elms.caption.getBoundingClientRect(),
+			viewport: {
+				height: window.innerHeight,
+				width:  window.innerWidth
+			}
+		}
+	}
 
-		const winWidth      = window.innerWidth;
-		const winHeight     = window.innerHeight;
-		const popoverX      = this.popoverElm.getBoundingClientRect().left;
-		const popoverY      = this.popoverElm.getBoundingClientRect().top;
-		const popoverWidth  = this.popoverElm.offsetWidth;
-		const popoverHeight = this.popoverElm.offsetHeight;
+	/* Positioning
+	 **************/
+	_resetPosition(position = null) { // :void
+		this.state.position = position || this.position;
+		this._updateCssTopStyles('remove');
+		this._updateCssPositionClass('remove');
+	}
+	_setPosition(position = null) { // :void (recursive until viewable)
+		if (this.state.retries.isDone()) return; // see retries.limit
+		// Bootstrap
+		this._resetPosition(position);
+		let dims = this._getDimensions();
 
+		// Update View
+		this._updateCssTopStyles('add', dims); // conditionally see method
+		this._updateCssPositionClass('add', this.state.position);
+
+		// Is Viewable?
+		dims = this._getDimensions();
+		const isViewable = this._isViewable(dims);
+		if (isViewable) return this.state.retries.reset();
+
+		// Make Viewable
+		position = this._geViewablePosition(dims, this.state.position, this.state.retries.cnt);
+		this.state.retries.cnt++;
+		this._setPosition(position);
+	}
+
+	/* Make Viewable
+	 ****************/
+	_isViewable(dims) { // :boolean (relative to viewport)
+		return (
+			dims.popover.top    >= 0 &&
+			dims.popover.left   >= 0 &&
+			dims.popover.bottom <= dims.viewport.height &&
+			dims.popover.right  <= dims.viewport.width
+		)
+	}
+	_geViewablePosition(dims, position, retry) { // :string
+		let newPosition;
 		switch (true) {
-			case ((popoverX - popoverWidth-9) < 0 && popoverX + popoverWidth + 9 > winWidth)://both left and right out of bounce
-				this._setBottomPosition();
+			case position === 'left':
+				newPosition = retry === 1 ? 'bottom' : 'right';
 				break;
-			case (popoverX - popoverWidth - 35 < 0):
-				this._setRightPosition();
+			case position === 'right':
+				newPosition = retry === 1 ? 'bottom' : 'left';
 				break;
-			case (popoverX + popoverWidth + 9 > winWidth):
-				this._setLeftPosition();
+			case position === 'top':
+				newPosition = retry === 1 ? 'right' : 'bottom';
 				break;
-			case (popoverY - popoverHeight < 0):
-				this._setBottomPosition();
+			case position === 'bottom':
+				newPosition = retry === 1 ? 'right' : 'top';
 				break;
-			case (popoverY + popoverHeight > winHeight):
-				this._setTopPosition();
-				break;
-			default:
-				this._setPosition();
+		}
+		return newPosition;
+	}
+
+	/* Slot Event Handlers
+	 **********************/
+	_trimSlot(slot) { // :void (mutator: slot.textContent)
+		for (const child of slot.assignedNodes()) {
+			if (child.nodeType !== 3) continue;
+			const text = child.textContent;
+			if (!text) continue;
+			if (child.nextSibling && child.nextSibling.nodeType === 1) {
+				child.textContent = text.trimLeft();
+				continue;
+			}
+			child.textContent = text.trim();
 		}
 	}
-
-	_setPosition() { // :void
-		switch (this.position) {
-			case 'left':
-				this._setLeftPosition();
+	_hasContent(e) { // :void
+		const slot = e.tagName ? e : e.currentTarget;
+		this._trimSlot(slot);
+		this.state.hasContent = false;
+		for (const child of slot.assignedNodes()) {
+			if (child.nodeType === 1) {
+				this.state.hasContent = true;
 				break;
-			case 'top':
-				this._setTopPosition();
-				break;
-			case 'bottom':
-				this._setBottomPosition();
-				break;
-			default:
-				this._setRightPosition()
+			}
+			if (child.nodeType !== 3) continue;
+			if (!child.textContent.length) continue;
+			this.state.hasContent = true; break;
 		}
-	}
-
-	_setTopPosition() { // :void
-		this.state.position = 'top';
-		this.popoverElm.style.left = this.triggerElm.offsetLeft - (this.popoverElm.offsetWidth/2 - 8) + 'px'
-		this.popoverElm.style.top =  this.triggerElm.offsetTop - (this.pointerElm.offsetHeight + this.popoverElm.offsetHeight + 2) + 'px'
-	}
-
-	_setBottomPosition() { // :void
-		this.state.position = 'bottom';
-		this.popoverElm.style.left = this.triggerElm.offsetLeft - (this.popoverElm.offsetWidth/2 - 8) + 'px'
-		this.popoverElm.style.top =  this.triggerElm.offsetTop + this.pointerElm.offsetHeight + this.triggerElm.offsetHeight + 'px'
-	}
-
-	_setLeftPosition() { // :void
-		this.state.position = 'left';
-		this._setRightLeftPositionTop();
-		this.popoverElm.style.left = this.triggerElm.offsetLeft - this.popoverElm.offsetWidth - this.pointerElm.offsetWidth - 2 + 'px'
-	}
-
-	_setRightPosition() { // :void
-		this.state.position = 'right';
-		this._setRightLeftPositionTop();
-		this.popoverElm.style.left = this.triggerElm.offsetLeft + this.pointerElm.offsetWidth + this.triggerElm.offsetWidth + 2 +'px'
-	}
-
-	_setRightLeftPositionTop() { // :void
-		this.pointerElm.style.top = (this.popoverElm.offsetTop + 58) + 'px';
-		if (!!this.caption) return;
-		// no caption scenario
-		if (this.popoverElm.offsetHeight > 78) return;
-		this.popoverElm.style.top = 'calc(50% - 21px)';
-		this.pointerElm.style.top = 'calc(50% - 10px)';
+		const action = this.state.hasContent ? 'add' : 'remove';
+		this.shadowRoot.querySelector('.rb-popover').classList[action]('with-content');
 	}
 
 	/* Event Handlers
 	 *****************/
-	_handleClick(e) { // :void
+	_clickToggle(e) { // :void
 		this.showPopover = !this.showPopover;
 	}
-	_handleHover(e) { // :void
+	_hoverToggle(e) { // :void
 		if (!this.hover) return;
 		if (this.showPopover) return;
 		this.showPopover = true;
 	}
-	_windowClick(e) { // :void
+	_windowClickToggle(e) { // :void
 		if (!this.showPopover) return;
 		const path = e.composedPath();
-		if (path.includes(this.popoverElm)) return;
-		if (path.includes(this.triggerElm)) return;
+		if (path.includes(this.elms.popover)) return;
+		if (path.includes(this.elms.trigger)) return;
 		this.showPopover = false;
 	}
 
 	/* Observer
 	 ***********/
-	updating(prevProps) {
-		// console.log(prevProps.showPopover, this.showPopover);
+	async rendered() { // :void
+		if (!this.elms) return;
+		if (!this.elms.pointer) return;
 		if (!this.showPopover) return;
-		if (prevProps.showPopover === this.showPopover) return;
-		setTimeout(() => { // (timeout to ensure popover has dimensions)
-			this._adjustToWindow();
-			this.triggerUpdate();
-		})
+		// await to ensure trigger/rb-button has dimensions
+		// TODO: find better way to ensure sub-component are ready
+		await(async()=>{})();
+		this._setPosition();
 	}
 
 	/* Template
 	 ***********/
-	render({ props, state }) { // :string
+	render({ props }) { // :string
 		return html template;
 	}
 }
