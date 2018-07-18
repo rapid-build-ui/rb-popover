@@ -3,12 +3,10 @@
  **********/
 .pointer {
 	position: absolute;
-	left: -16px;
 	width: 0;
 	height: 0;
 	border-style: solid;
 	border-width: 0 8px 16px 8px;
-	border-color: transparent transparent white transparent;
 	transform: rotate(270deg);
 	&::after,
 	&::before {
@@ -29,21 +27,26 @@
 		border-top: 1px solid #ddd;
 		transform: rotate(-63deg);
 	}
+}
 
-	/* Positions
-	 ************/
-	&.bottom {
-		top: -16px;
-		left: calc(50% - 8px);
-		transform: rotate(0);
-	}
-	&.top {
-		top: calc(100%);
-		left: calc(50% - 8px);
-		transform: rotate(180deg);
-	}
-	&.left {
-		left: calc(100%);
-		transform: rotate(90deg);
-	}
+/* Positioning (default: right)
+ **************/
+&.right .pointer {
+	top: 0;
+	left: -16px;
+}
+&.left .pointer {
+	top: 0;
+	left: calc(100%);
+	transform: rotate(90deg);
+}
+&.top .pointer {
+	top: calc(100% - 1px);
+	left: calc(50% - 8px);
+	transform: rotate(180deg);
+}
+&.bottom .pointer {
+	bottom: calc(100%);
+	left: calc(50% - 8px);
+	transform: rotate(0);
 }

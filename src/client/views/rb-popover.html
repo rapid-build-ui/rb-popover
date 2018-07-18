@@ -2,20 +2,21 @@
 	rb-popover
 	${props.kind || 'default'}
 	${props.unstyled ? 'unstyled' : ''}
-	${props.caption ? 'with-caption' : ''}
+	${props.caption ? 'with-caption' : 'no-caption'}
 	${props.fitContent ? 'fit-content' : ''}">
 	<rb-button
 		kind="text"
 		icon$="${props.icon || 'info-circle'}"
+		icon-size$="${props.iconSize || undefined}"
 		icon-source$="${!props.icon ? 'solid' : props.iconSource}"
-		on-click="${this._handleClick.bind(this)}"
-		on-mouseover="${this._handleHover.bind(this)}">
+		on-click="${this._clickToggle.bind(this)}"
+		on-mouseover="${this._hoverToggle.bind(this)}">
 	</rb-button>
 	<div class$="popover ${props.showPopover ? '' : 'hidden'}">
-		<em class$="pointer ${state.position}"></em>
-		${props.caption ? html`<h3 class="header">${props.caption}</h3>` : null}
+		<em class="pointer"></em>
+		${props.caption ? html`<h3 class="caption">${props.caption}</h3>` : null}
 		<div class="body">
-			<slot></slot>
+			<slot on-slotchange="${this._hasContent.bind(this)}"></slot>
 		</div>
 	</div>
 </div>

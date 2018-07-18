@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@rapid-build-ui/rb-button@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@rapid-build-ui/rb-button/-/rb-button-0.0.6.tgz#1b14c9c170cf5147690fb21100eb5865702e832f"
+"@rapid-build-ui/rb-button@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@rapid-build-ui/rb-button/-/rb-button-0.0.7.tgz#4abbfc311697ee243171eb696f318bbbdc76ba59"
   dependencies:
     "@rapid-build-ui/rb-icon" "^0.0.5"
     lit-html "^0.10.2"
