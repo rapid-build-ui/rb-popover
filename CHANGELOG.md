@@ -1,3 +1,25 @@
+## [0.0.7](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.6...v0.0.7) (2018-07-18)
+
+
+This release includes a massive refactoring of rb-popover for the following features and fixes:  
+Also included is a bump of rb-button to [v0.0.7](https://git.io/fNZJu) which is required for the new popover positioning.  
+Unfortunately all the following are from [this single commit](https://github.com/rapid-build-ui/rb-popover/commit/4d47f6e).
+
+
+### Features
+
+* **new api option "icon-size":** for changing the size of the icon
+* **improve visibility:** ensure popover is always visible in viewport
+* **standalone caption support:** accurately style popover when using caption and no content option
+
+
+### Bug Fixes
+
+* **firefox:** from not setting the correct popover width
+* **popover position:** when used inside text with a large font-size
+
+
+
 ## [0.0.6](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.5...v0.0.6) (2018-07-11)
 
 
