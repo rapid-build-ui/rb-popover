@@ -1,3 +1,12 @@
+## [0.0.8](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.7...v0.0.8) (2018-08-30)
+
+
+### Dependency Updates
+
+* **rb-base:** replace deps lit-html and skatejs with @rapid-build-ui/rb-base and make corresponding updates ([d5ec78e](https://github.com/rapid-build-ui/rb-popover/commit/d5ec78e))
+
+
+
 ## [0.0.7](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.6...v0.0.7) (2018-07-18)
 
 
