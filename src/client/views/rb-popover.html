@@ -12,7 +12,7 @@
 		on-click="${this._clickToggle.bind(this)}"
 		on-mouseover="${this._hoverToggle.bind(this)}">
 	</rb-button>
-	<div class$="popover ${props.showPopover ? '' : 'hidden'}">
+	<div class$="popover ${props.showPopover && this.rb.view.isReady ? '' : 'hidden'}">
 		<em class="pointer"></em>
 		${props.caption ? html`<h3 class="caption">${props.caption}</h3>` : null}
 		<div class="body">
