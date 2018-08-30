@@ -1,18 +1,15 @@
 /*************
  * RB-POPOVER
  *************/
-import { props, withComponent } from '../../../skatejs/dist/esnext/index.js';
-import { html, withRenderer } from './renderer.js';
-import EventService from './event-service.js';
-import '../../rb-button/scripts/rb-button.js';
-import template from '../views/rb-popover.html';
+ import { props, html, RbBase } from '../../rb-base/scripts/rb-base.js';
+ import '../../rb-button/scripts/rb-button.js';
+ import template from '../views/rb-popover.html';
 
-export class RbPopover extends withComponent(withRenderer()) {
+ export class RbPopover extends RbBase() {
 	/* Lifecycle
 	 ************/
 	constructor() {
 		super();
-		this.rbEvent = EventService.call(this);
 		this.state = {
 			hasContent: false,
 			// needed to set back original position
@@ -43,10 +40,8 @@ export class RbPopover extends withComponent(withRenderer()) {
 			caption:   this.shadowRoot.querySelector('.caption')
 		}
 		this._hasContent(this.shadowRoot.querySelector('slot'));
-		this.rbEvent.add(window, 'window', 'click touchstart', '_windowClickToggle');
-	}
-	disconnected() {
-		this.rbEvent.remove(window, 'window', 'click touchstart', '_windowClickToggle');
+		this.rb.events.add(window, 'click touchstart', this._windowClickToggle);
+		if (this.showPopover) this.triggerUpdate();
 	}
 
 	/* Properties
@@ -124,7 +119,10 @@ export class RbPopover extends withComponent(withRenderer()) {
 		this._updateCssPositionClass('remove');
 	}
 	_setPosition(position = null) { // :void (recursive until viewable)
+		if (!this.showPopover) return;
+		if (!this.rb.view.isReady) return;
 		if (this.state.retries.isDone()) return; // see retries.limit
+
 		// Bootstrap
 		this._resetPosition(position);
 		let dims = this._getDimensions();
@@ -224,13 +222,7 @@ export class RbPopover extends withComponent(withRenderer()) {
 
 	/* Observer
 	 ***********/
-	async rendered() { // :void
-		if (!this.elms) return;
-		if (!this.elms.pointer) return;
-		if (!this.showPopover) return;
-		// await to ensure trigger/rb-button has dimensions
-		// TODO: find better way to ensure sub-component are ready
-		await(async()=>{})();
+	rendered() { // :void
 		this._setPosition();
 	}
 
