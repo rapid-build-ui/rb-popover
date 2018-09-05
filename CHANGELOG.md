@@ -1,3 +1,12 @@
+## [0.0.9](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.8...v0.0.9) (2018-09-05)
+
+
+### Dependency Updates
+
+* **rb-base:** bump to v0.0.2 ([636d2ad](https://github.com/rapid-build-ui/rb-popover/commit/636d2ad))
+
+
+
 ## [0.0.8](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.7...v0.0.8) (2018-08-30)
 
 
