@@ -1,4 +1,4 @@
-<div class$="
+<div class="
 	rb-popover
 	${props.kind || 'default'}
 	${props.unstyled ? 'unstyled' : ''}
@@ -6,17 +6,17 @@
 	${props.fitContent ? 'fit-content' : ''}">
 	<rb-button
 		kind="text"
-		icon$="${props.icon || 'info-circle'}"
-		icon-size$="${props.iconSize || undefined}"
-		icon-source$="${!props.icon ? 'solid' : props.iconSource}"
-		on-click="${this._clickToggle.bind(this)}"
-		on-mouseover="${this._hoverToggle.bind(this)}">
+		icon="${props.icon || 'info-circle'}"
+		icon-size="${props.iconSize || undefined}"
+		icon-source="${!props.icon ? 'solid' : props.iconSource}"
+		@click="${this._clickToggle.bind(this)}"
+		@mouseover="${this._hoverToggle.bind(this)}">
 	</rb-button>
-	<div class$="popover ${props.showPopover && this.rb.view.isReady ? '' : 'hidden'}">
+	<div class="popover ${props.showPopover && this.rb.view.isReady ? '' : 'hidden'}">
 		<em class="pointer"></em>
 		${props.caption ? html`<h3 class="caption">${props.caption}</h3>` : null}
 		<div class="body">
-			<slot on-slotchange="${this._hasContent.bind(this)}"></slot>
+			<slot @slotchange="${this._hasContent.bind(this)}"></slot>
 		</div>
 	</div>
 </div>
