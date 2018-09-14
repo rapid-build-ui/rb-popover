@@ -32,13 +32,13 @@
 	}
 	viewReady() {
 		super.viewReady && super.viewReady();
-		this.elms = {
+		Object.assign(this.rb.elms, {
 			rbPopover: this.shadowRoot.querySelector('.rb-popover'),
 			trigger:   this.shadowRoot.querySelector('rb-button'),
 			popover:   this.shadowRoot.querySelector('.popover'),
 			pointer:   this.shadowRoot.querySelector('.pointer'),
 			caption:   this.shadowRoot.querySelector('.caption')
-		}
+		});
 		this._hasContent(this.shadowRoot.querySelector('slot'));
 		this.rb.events.add(window, 'click touchstart', this._windowClickToggle);
 		if (this.showPopover) this.triggerUpdate();
@@ -71,20 +71,20 @@
 	 ****************/
 	_updateCssPositionClass(action, position = null) { // :void
 		const cssClasses = action === 'add' ? [position] : ['left','right','top','bottom'];
-		this.elms.rbPopover.classList[action](...cssClasses);
+		this.rb.elms.rbPopover.classList[action](...cssClasses);
 	}
 	_updateCssTopStyles(action, dims) { // :void
 		if (action === 'remove') {
-			this.elms.pointer.style.top = null;
-			this.elms.popover.style.top = null;
+			this.rb.elms.pointer.style.top = null;
+			this.rb.elms.popover.style.top = null;
 			return;
 		}
 		// must be positioned left or right and have caption and content (css handles the rest)
 		if (['left','right'].indexOf(this.state.position) === -1) return;
 		if (!(!!this.caption && this.state.hasContent)) return;
 		const coords = this._getPopoverCoords(dims);
-		this.elms.popover.style.top = `${coords.popoverTop}px`;
-		this.elms.pointer.style.top = `${coords.pointerTop}px`;
+		this.rb.elms.popover.style.top = `${coords.popoverTop}px`;
+		this.rb.elms.pointer.style.top = `${coords.pointerTop}px`;
 	}
 
 	/* Coordinates & Dimensions
@@ -100,10 +100,10 @@
 	}
 	_getDimensions() { // :{}
 		return {
-			trigger: this.elms.trigger.getBoundingClientRect(),
-			popover: this.elms.popover.getBoundingClientRect(),
-			pointer: this.elms.pointer.getBoundingClientRect(),
-			caption: this.elms.caption && this.elms.caption.getBoundingClientRect(),
+			trigger: this.rb.elms.trigger.getBoundingClientRect(),
+			popover: this.rb.elms.popover.getBoundingClientRect(),
+			pointer: this.rb.elms.pointer.getBoundingClientRect(),
+			caption: this.rb.elms.caption && this.rb.elms.caption.getBoundingClientRect(),
 			viewport: {
 				height: window.innerHeight,
 				width:  window.innerWidth
@@ -215,8 +215,8 @@
 	_windowClickToggle(e) { // :void
 		if (!this.showPopover) return;
 		const path = e.composedPath();
-		if (path.includes(this.elms.popover)) return;
-		if (path.includes(this.elms.trigger)) return;
+		if (path.includes(this.rb.elms.popover)) return;
+		if (path.includes(this.rb.elms.trigger)) return;
 		this.showPopover = false;
 	}
 
