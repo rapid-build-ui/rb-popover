@@ -1,3 +1,14 @@
+## [0.0.10](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.9...v0.0.10) (2018-09-14)
+
+
+### Dependency Updates
+
+* **bump deps:** ([d1c8346](https://github.com/rapid-build-ui/rb-popover/commit/d1c8346))
+	* **rb-base** to v0.0.3
+	* **rb-button** to v0.0.10
+
+
+
 ## [0.0.9](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.8...v0.0.9) (2018-09-05)
 
 
