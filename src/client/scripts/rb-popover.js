@@ -53,7 +53,7 @@
 			hover: props.boolean,
 			kind: props.string,
 			unstyled: props.boolean,
-			icon: props.string,
+			iconKind: props.string,
 			iconSize: props.number,
 			iconSource: props.string,
 			position: Object.assign({}, props.string, {
