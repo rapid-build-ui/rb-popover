@@ -1,18 +1,38 @@
+## [0.0.11](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.10...v0.0.11) (2018-09-26)
+
+
+### Dependencies
+
+* **bump:** deps rb-base v0.0.4 and rb-button v0.0.11 ([9122287](https://github.com/rapid-build-ui/rb-popover/commit/9122287))
+
+
+### BREAKING CHANGES
+
+* **api option:** change icon to icon-kind ([d936ecc](https://github.com/rapid-build-ui/rb-popover/commit/d936ecc))
+
+To migrate the code follow the example below:
+
+**Before:**  
+icon="heart"
+
+**Now:**  
+icon-kind="heart"
+
+
+
 ## [0.0.10](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.9...v0.0.10) (2018-09-14)
 
 
-### Dependency Updates
+### Dependencies
 
-* **bump deps:** ([d1c8346](https://github.com/rapid-build-ui/rb-popover/commit/d1c8346))
-	* **rb-base** to v0.0.3
-	* **rb-button** to v0.0.10
+* **bump:** deps rb-base v0.0.3 and rb-button v0.0.10 ([d1c8346](https://github.com/rapid-build-ui/rb-popover/commit/d1c8346))
 
 
 
 ## [0.0.9](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.8...v0.0.9) (2018-09-05)
 
 
-### Dependency Updates
+### Dependencies
 
 * **rb-base:** bump to v0.0.2 ([636d2ad](https://github.com/rapid-build-ui/rb-popover/commit/636d2ad))
 
@@ -21,7 +41,7 @@
 ## [0.0.8](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.7...v0.0.8) (2018-08-30)
 
 
-### Dependency Updates
+### Dependencies
 
 * **rb-base:** replace deps lit-html and skatejs with @rapid-build-ui/rb-base and make corresponding updates ([d5ec78e](https://github.com/rapid-build-ui/rb-popover/commit/d5ec78e))
 
