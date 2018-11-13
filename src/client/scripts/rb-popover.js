@@ -2,6 +2,7 @@
  * RB-POPOVER
  *************/
  import { props, html, RbBase } from '../../rb-base/scripts/rb-base.js';
+ import view from '../../rb-base/scripts/view-directives.js';
  import '../../rb-button/scripts/rb-button.js';
  import template from '../views/rb-popover.html';
 
@@ -11,19 +12,17 @@
 	constructor() {
 		super();
 		this.state = {
+			coords: { popover: {}, pointer: {} },
 			hasContent: false,
-			// needed to set back original position
-			position: null,
-			// retries to make popover viewable
-			// this prevents infinite loop
-			retries: {
+			position: null, // needed to set back original position
+			retries: { // retries to make popover viewable (this prevents infinite loop)
 				cnt: 0,
 				limit: 3,
 				reset() { // :void (mutator: cnt)
 					this.cnt = 0;
 				},
-				isDone() { // :boolean
-					if (this.cnt <= this.limit) return false;
+				isDone() { // :boolean (mutator: cnt)
+					if (this.cnt <= this.limit) { this.cnt++; return false; }
 					this.reset();
 					return true;
 				}
@@ -33,11 +32,10 @@
 	viewReady() {
 		super.viewReady && super.viewReady();
 		Object.assign(this.rb.elms, {
-			rbPopover: this.shadowRoot.querySelector('.rb-popover'),
-			trigger:   this.shadowRoot.querySelector('rb-button'),
-			popover:   this.shadowRoot.querySelector('.popover'),
-			pointer:   this.shadowRoot.querySelector('.pointer'),
-			caption:   this.shadowRoot.querySelector('.caption')
+			trigger: this.shadowRoot.querySelector('rb-button'),
+			popover: this.shadowRoot.querySelector('.popover'),
+			pointer: this.shadowRoot.querySelector('.pointer'),
+			caption: this.shadowRoot.querySelector('.caption')
 		});
 		this._hasContent(this.shadowRoot.querySelector('slot'));
 		this.rb.events.add(window, 'click touchstart', this._windowClickToggle);
@@ -67,37 +65,8 @@
 		}
 	}
 
-	/* View Updaters
-	 ****************/
-	_updateCssPositionClass(action, position = null) { // :void
-		const cssClasses = action === 'add' ? [position] : ['left','right','top','bottom'];
-		this.rb.elms.rbPopover.classList[action](...cssClasses);
-	}
-	_updateCssTopStyles(action, dims) { // :void
-		if (action === 'remove') {
-			this.rb.elms.pointer.style.top = null;
-			this.rb.elms.popover.style.top = null;
-			return;
-		}
-		// must be positioned left or right and have caption and content (css handles the rest)
-		if (['left','right'].indexOf(this.state.position) === -1) return;
-		if (!(!!this.caption && this.state.hasContent)) return;
-		const coords = this._getPopoverCoords(dims);
-		this.rb.elms.popover.style.top = `${coords.popoverTop}px`;
-		this.rb.elms.pointer.style.top = `${coords.pointerTop}px`;
-	}
-
-	/* Coordinates & Dimensions
+	/* Dimensions & Coordinates
 	 ***************************/
-	_getPopoverCoords(dims) { // :{}
-		return {
-			pointerTop: dims.caption.height,
-			popoverTop: (
-				(dims.trigger.height / 2) -
-				dims.caption.height - dims.pointer.height + 3 // + a little top bumper
-			)
-		}
-	}
 	_getDimensions() { // :{}
 		return {
 			trigger: this.rb.elms.trigger.getBoundingClientRect(),
@@ -110,36 +79,28 @@
 			}
 		}
 	}
-
-	/* Positioning
-	 **************/
-	_resetPosition(position = null) { // :void
-		this.state.position = position || this.position;
-		this._updateCssTopStyles('remove');
-		this._updateCssPositionClass('remove');
+	_getPopoverCoords(dims) { // :{}
+		return {
+			pointerTop: dims.caption.height,
+			popoverTop: (
+				(dims.trigger.height / 2) -
+				dims.caption.height - dims.pointer.height + 3 // + a little top bumper
+			)
+		}
 	}
-	_setPosition(position = null) { // :void (recursive until viewable)
-		if (!this.showPopover) return;
-		if (!this.rb.view.isReady) return;
-		if (this.state.retries.isDone()) return; // see retries.limit
 
-		// Bootstrap
-		this._resetPosition(position);
-		let dims = this._getDimensions();
-
-		// Update View
-		this._updateCssTopStyles('add', dims); // conditionally see method
-		this._updateCssPositionClass('add', this.state.position);
-
-		// Is Viewable?
-		dims = this._getDimensions();
-		const isViewable = this._isViewable(dims);
-		if (isViewable) return this.state.retries.reset();
-
-		// Make Viewable
-		position = this._geViewablePosition(dims, this.state.position, this.state.retries.cnt);
-		this.state.retries.cnt++;
-		this._setPosition(position);
+	/* Style Helpers
+	 ****************/
+	_clearTopStyles() { // :void
+		this.state.coords.popover.top = null;
+		this.state.coords.pointer.top = null;
+	}
+	_updateTopStyles(position, dims) { // :void
+		if (['left','right'].indexOf(position) === -1)  return this._clearTopStyles(); // if top or bottom css handles positioning
+		if (!(!!this.caption && this.state.hasContent)) return this._clearTopStyles(); // if not caption and content css handles positioning
+		const coords = this._getPopoverCoords(dims);
+		this.state.coords.popover.top = `${coords.popoverTop}px`;
+		this.state.coords.pointer.top = `${coords.pointerTop}px`;
 	}
 
 	/* Make Viewable
@@ -152,23 +113,35 @@
 			dims.popover.right  <= dims.viewport.width
 		)
 	}
-	_geViewablePosition(dims, position, retry) { // :string
-		let newPosition;
-		switch (true) {
-			case position === 'left':
-				newPosition = retry === 1 ? 'bottom' : 'right';
-				break;
-			case position === 'right':
-				newPosition = retry === 1 ? 'bottom' : 'left';
-				break;
-			case position === 'top':
-				newPosition = retry === 1 ? 'right' : 'bottom';
-				break;
-			case position === 'bottom':
-				newPosition = retry === 1 ? 'right' : 'top';
-				break;
+	_geViewablePosition(position) { // :string (counterclockwise)
+		switch (position) {
+			case 'right':  return 'top';
+			case 'top':    return 'left';
+			case 'left':   return 'bottom';
+			case 'bottom': return 'right';
 		}
-		return newPosition;
+	}
+
+	/* Popover Positioning
+	 **********************/
+	async _setPosition() { // :void (recursive until viewable)
+		if (await this.state.retries.isDone()) return;
+		const dims = this._getDimensions();
+		if (this.state.retries.cnt === 1) {
+			this.state.position = this.position;
+		} else {
+			const isViewable = this._isViewable(dims);
+			if (isViewable) return this.state.retries.reset();
+			this.state.position = this._geViewablePosition(this.state.position);
+		}
+		this._updateTopStyles(this.state.position, dims);
+		this.triggerUpdate(); // triggers rendered()
+	}
+	rendered() { // :void
+		super.rendered && super.rendered();
+		if (!this.showPopover) return;
+		if (!this.rb.view.isReady) return;
+		this._setPosition();
 	}
 
 	/* Slot Event Handlers
@@ -198,8 +171,6 @@
 			if (!child.textContent.length) continue;
 			this.state.hasContent = true; break;
 		}
-		const action = this.state.hasContent ? 'add' : 'remove';
-		this.shadowRoot.querySelector('.rb-popover').classList[action]('with-content');
 	}
 
 	/* Event Handlers
@@ -220,15 +191,9 @@
 		this.showPopover = false;
 	}
 
-	/* Observer
-	 ***********/
-	rendered() { // :void
-		this._setPosition();
-	}
-
 	/* Template
 	 ***********/
-	render({ props }) { // :string
+	render({ props, state }) { // :string
 		return html template;
 	}
 }

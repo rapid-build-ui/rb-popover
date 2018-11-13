@@ -3,7 +3,9 @@
 	${props.kind || 'default'}
 	${props.unstyled ? 'unstyled' : ''}
 	${props.caption ? 'with-caption' : 'no-caption'}
-	${props.fitContent ? 'fit-content' : ''}">
+	${props.fitContent ? 'fit-content' : ''}
+	${state.hasContent ? 'with-content' : ''}
+	${state.position ? state.position : props.position}">
 	<rb-button
 		kind="text"
 		icon-kind="${props.iconKind || 'info-circle'}"
@@ -12,8 +14,12 @@
 		@click="${this._clickToggle.bind(this)}"
 		@mouseover="${this._hoverToggle.bind(this)}">
 	</rb-button>
-	<div class="popover ${props.showPopover && this.rb.view.isReady ? '' : 'hidden'}">
-		<em class="pointer"></em>
+	<div
+		style="${view.styleMap(state.coords.popover)}"
+		class="popover ${view.classMap({
+			hidden: !props.showPopover || !this.rb.view.isReady
+		})}">
+		<em class="pointer" style="${view.styleMap(state.coords.pointer)}"></em>
 		${props.caption ? html`<h3 class="caption">${props.caption}</h3>` : null}
 		<div class="body">
 			<slot @slotchange="${this._hasContent.bind(this)}"></slot>
