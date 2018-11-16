@@ -18,86 +18,86 @@
 
 &.default {
 	rb-button {
-		color: #9faab5;
+		color: var(--default-trigger-color);
 	}
 	.popover {
-		color: #5f6e7e;
+		color: var(--default-color);
 		.caption {
-			background-color: $popoverDefault;
+			background-color: var(--default-bg-color);
 		}
 		.pointer {
-			border-color: transparent transparent $popoverDefault transparent;
+			border-color: transparent transparent var(--default-bg-color) transparent;
 		}
 	}
 	&.with-caption.bottom .pointer {
-		border-bottom-color: $popoverDefault;
+		border-bottom-color: var(--default-bg-color);
 	}
 }
 &.success {
 	rb-button {
-		color: darken($popoverSuccess, 30%);
+		color: var(--success-trigger-color);
 	}
 	.popover {
-		color: #155724;
+		color: var(--success-color);
 		.caption {
-			background-color: $popoverSuccess;
+			background-color: var(--success-bg-color);
 		}
 		.pointer {
-			border-color: transparent transparent $popoverSuccess transparent;
+			border-color: transparent transparent var(--success-bg-color) transparent;
 		}
 	}
 	&.with-caption.bottom .pointer {
-		border-bottom-color: $popoverSuccess;
+		border-bottom-color: var(--success-bg-color);
 	}
 }
 &.danger {
 	rb-button {
-		color: darken($popoverDanger, 30%);
+		color: var(--danger-trigger-color);
 	}
 	.popover {
-		color: #721c24;
+		color: var(--danger-color);
 		.caption {
-			background-color: $popoverDanger;
+			background-color: var(--danger-bg-color);
 		}
 		.pointer {
-			border-color: transparent transparent $popoverDanger transparent;
+			border-color: transparent transparent var(--danger-bg-color) transparent;
 		}
 	}
 	&.with-caption.bottom .pointer {
-		border-bottom-color: $popoverDanger;
+		border-bottom-color: var(--danger-bg-color);
 	}
 }
 &.warning {
 	rb-button {
-		color: darken($popoverWarning, 45%);
+		color: var(--warning-trigger-color);
 	}
 	.popover {
-		color: #856404;
+		color: var(--warning-color);
 		.caption {
-			background-color: $popoverWarning;
+			background-color: var(--warning-bg-color);
 		}
 		.pointer {
-			border-color: transparent transparent $popoverWarning transparent;
+			border-color: transparent transparent var(--warning-bg-color) transparent;
 		}
 	}
 	&.with-caption.bottom .pointer {
-		border-bottom-color: $popoverWarning;
+		border-bottom-color: var(--warning-bg-color);
 	}
 }
 &.info {
 	rb-button {
-		color: darken($popoverInfo, 30%);
+		color: var(--info-trigger-color);
 	}
 	.popover {
-		color: #0c5460;
+		color: var(--info-color);
 		.caption {
-			background-color: $popoverInfo;
+			background-color: var(--info-bg-color);
 		}
 		.pointer {
-			border-color: transparent transparent $popoverInfo transparent;
+			border-color: transparent transparent var(--info-bg-color) transparent;
 		}
 	}
 	&.with-caption.bottom .pointer {
-		border-bottom-color: $popoverInfo;
+		border-bottom-color: var(--info-bg-color);
 	}
 }
