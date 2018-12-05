@@ -1,3 +1,24 @@
+## [0.0.13](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.12...v0.0.13) (2018-12-05)
+
+
+### Bug Fixes
+
+* **event:** ensure window click event fires first ([813c36f](https://github.com/rapid-build-ui/rb-popover/commit/813c36f))
+
+
+### Features
+
+* **bump:** deps rb-base v0.0.6 and rb-button v0.0.13 ([6b37df5](https://github.com/rapid-build-ui/rb-popover/commit/6b37df5))
+* **css variables:** add and expose them ([0b827c3](https://github.com/rapid-build-ui/rb-popover/commit/0b827c3))
+* **hidden attribute:** display style that respects the hidden attribute ([a0e31f3](https://github.com/rapid-build-ui/rb-popover/commit/a0e31f3))
+
+
+### Performance Improvements
+
+* **css:** improve browser performance by adding css contain property ([e26a08c](https://github.com/rapid-build-ui/rb-popover/commit/e26a08c))
+
+
+
 ## [0.0.12](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.11...v0.0.12) (2018-11-13)
 
 
