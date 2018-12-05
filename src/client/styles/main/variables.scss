@@ -1,0 +1,28 @@
+/***********************
+ * RB-POPOVER VARIABLES
+ ***********************/
+:host {
+	// common
+	--border-radius: var(--rb-popover-border-radius, .3rem);
+
+	// popover bg-color
+	--default-bg-color: var(--rb-popover-default-bg-color, #f7f7f7);
+	--danger-bg-color:  var(--rb-popover-danger-bg-color,  #f8d7da);
+	--info-bg-color:    var(--rb-popover-info-bg-color,    #d1ecf1);
+	--success-bg-color: var(--rb-popover-success-bg-color, #d4edda);
+	--warning-bg-color: var(--rb-popover-warning-bg-color, #fff3cd);
+
+	// popover color
+	--default-color: var(--rb-popover-default-color, #5f6e7e);
+	--danger-color:  var(--rb-popover-danger-color,  #721c24);
+	--info-color:    var(--rb-popover-info-color,    #0c5460);
+	--success-color: var(--rb-popover-success-color, #155724);
+	--warning-color: var(--rb-popover-warning-color, #856404);
+
+	// trigger color
+	--default-trigger-color: var(--rb-popover-default-trigger-color, #9faab5);
+	--danger-trigger-color:  var(--rb-popover-danger-trigger-color,  #e15562);
+	--info-trigger-color:    var(--rb-popover-info-trigger-color,    #5cbccd);
+	--success-trigger-color: var(--rb-popover-success-trigger-color, #68c07d);
+	--warning-trigger-color: var(--rb-popover-warning-trigger-color, #e7af00);
+}

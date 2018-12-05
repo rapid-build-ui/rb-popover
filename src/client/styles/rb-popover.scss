@@ -1,9 +1,9 @@
 /********************************
  * RB-POPOVER STYLES - IN ORDER!
  ********************************/
-// Sassy Goodness
 @import 'sass/functions.scss';
-@import 'sass/variables.scss';
+@import 'main/variables.scss';
+@import 'main/host.scss';
 
 // The Component
 .rb-popover {

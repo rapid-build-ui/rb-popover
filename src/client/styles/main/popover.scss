@@ -9,7 +9,7 @@
 	width: max-content;
 	cursor: auto;
 	border: 1px solid #ddd;
-	border-radius: .3rem;
+	border-radius: var(--border-radius);
 	background-color: white;
 	background-clip: padding-box;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
@@ -35,8 +35,8 @@
 		text-transform: uppercase;
 		text-shadow: 1px 1px 4px white;
 		border-bottom: 1px solid #ddd;
-		border-top-left-radius: calc(.3rem - 1px);
-		border-top-right-radius: calc(.3rem - 1px);
+		border-top-left-radius: calc(var(--border-radius) - 1px);
+		border-top-right-radius: calc(var(--border-radius) - 1px);
 	}
 
 	.body {
@@ -90,4 +90,3 @@
 		}
 	}
 }
-

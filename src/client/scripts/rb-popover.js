@@ -38,7 +38,9 @@
 			caption: this.shadowRoot.querySelector('.caption')
 		});
 		this._hasContent(this.shadowRoot.querySelector('slot'));
-		this.rb.events.add(window, 'click touchstart', this._windowClickToggle);
+		this.rb.events.add(window, 'click touchstart', this._windowClickToggle, {
+			capture: true // so event fires first
+		});
 		if (this.showPopover) this.triggerUpdate();
 	}
 
