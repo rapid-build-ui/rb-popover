@@ -2,6 +2,7 @@
  * TRIGGER
  **********/
 rb-button {
+	transition: opacity .18s;
 	&:hover {
 		opacity: .6;
 	}

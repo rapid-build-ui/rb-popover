@@ -52,6 +52,7 @@
 			fitContent: props.boolean,
 			hover: props.boolean,
 			kind: props.string,
+			pin: props.boolean, // popover only closes by clicking trigger
 			unstyled: props.boolean,
 			iconKind: props.string,
 			iconSize: props.number,
@@ -186,6 +187,7 @@
 		this.showPopover = true;
 	}
 	_windowClickToggle(e) { // :void
+		if (this.pin) return;
 		if (!this.showPopover) return;
 		const path = e.composedPath();
 		if (path.includes(this.rb.elms.popover)) return;
