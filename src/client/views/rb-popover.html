@@ -9,7 +9,7 @@
 	<rb-button
 		kind="text"
 		icon-kind="${props.iconKind || 'info-circle'}"
-		icon-size="${props.iconSize || undefined}"
+		icon-size="${view.ifDefined(props.iconSize || undefined)}"
 		icon-source="${!props.iconKind ? 'solid' : props.iconSource}"
 		icon-valign="${view.ifDefined(props.iconValign || undefined)}"
 		@click="${this._clickToggle.bind(this)}"
