@@ -57,6 +57,7 @@
 			iconKind: props.string,
 			iconSize: props.number,
 			iconSource: props.string,
+			iconValign: props.string,
 			position: Object.assign({}, props.string, {
 				default: 'right'
 			}),
