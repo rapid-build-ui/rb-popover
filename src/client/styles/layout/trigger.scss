@@ -8,11 +8,13 @@ rb-button {
 	}
 }
 
-&.unstyled {
-	rb-button {
-		color: inherit;
-		&:hover {
-			opacity: inherit;
+.rb-popover {
+	&.unstyled {
+		rb-button {
+			color: inherit;
+			&:hover {
+				opacity: inherit;
+			}
 		}
 	}
 }

@@ -2,14 +2,21 @@
  * RB-POPOVER STYLES - IN ORDER!
  ********************************/
 @import 'sass/functions.scss';
-@import 'main/variables.scss';
-@import 'main/host.scss';
+@import 'sass/palette.scss';
 
-// The Component
-.rb-popover {
-	@import 'main/root.scss';
-	@import 'main/kinds.scss';
-	@import 'main/trigger.scss';
-	@import 'main/pointer.scss';
-	@import 'main/popover.scss';
-}
+/* Layout
+ *********/
+@import 'layout/host.scss';
+@import 'layout/root.scss';
+@import 'layout/trigger.scss';
+@import 'layout/pointer.scss';
+@import 'layout/popover.scss';
+
+/* CSS Style Variables
+ **********************/
+@import 'variables/common.scss';
+@import 'sass/css-vars.scss';
+
+/* Styles
+ *********/
+@import 'style/common.scss';

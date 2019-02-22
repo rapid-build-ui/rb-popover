@@ -2,9 +2,9 @@
 	rb-popover
 	${props.kind || 'default'}
 	${props.unstyled ? 'unstyled' : ''}
-	${props.caption ? 'with-caption' : 'no-caption'}
 	${props.fitContent ? 'fit-content' : ''}
-	${state.hasContent ? 'with-content' : ''}
+	${props.caption ? 'with-caption' : 'no-caption'}
+	${state.hasContent ? 'with-content' : 'no-content'}
 	${state.position ? state.position : props.position}">
 	<rb-button
 		kind="text"

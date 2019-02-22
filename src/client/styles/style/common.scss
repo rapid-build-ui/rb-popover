@@ -1,0 +1,47 @@
+/********************************************
+ * COMMON STYLES (for light and dark themes)
+ ********************************************/
+@mixin setCommonStyles() {
+	// Common For All Kinds (root tag)
+	.rb-popover {
+		$radius: mapGet($vars, common, border-radius);
+		$cRadius: calc(#{$radius} - 1px);
+		.popover {
+			border-radius: $radius;
+		}
+		&.no-content .caption {
+			border-radius: $cRadius;
+		}
+		&.with-content .caption {
+			border-top-left-radius: $cRadius;
+			border-top-right-radius: $cRadius;
+		}
+	}
+
+	// Kinds
+	$kinds: default, danger, info, success, warning;
+	@each $kind in $kinds {
+		.#{$kind} {
+			&.with-caption {
+				&.bottom,
+				&.no-content {
+					.pointer {
+						$bgColor: mapGet($vars, common, #{$kind}-caption-bg);
+						border-bottom-color: $bgColor; // match caption bg
+					}
+				}
+			}
+			.popover {
+				color: mapGet($vars, common, #{$kind}-text-color);
+				.caption {
+					background-color: mapGet($vars, common, #{$kind}-caption-bg);
+				}
+			}
+			rb-button {
+				color: mapGet($vars, common, #{$kind}-trigger-color);
+			}
+		}
+	}
+}
+
+@include setCommonStyles();
