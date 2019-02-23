@@ -4,7 +4,7 @@
 .popover {
 	position: absolute;
 	z-index: 1060;
-	max-width: 276px; // TODO: make responsive, 255px fits iphone
+	max-width: 276px;
 	width: -moz-max-content; // firefox
 	width: max-content;
 	cursor: auto;
