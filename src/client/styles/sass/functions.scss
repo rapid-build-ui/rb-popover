@@ -26,22 +26,6 @@
 	@return $value;
 }
 
-/* Same as mapGet() but
- * doesn't throw if key not found.
- * Sometimes useful in @mixins.
- **********************************/
-@function mapSafeGet($map, $keys...) {
-	$value: $map;
-	@each $key in $keys {
-		@if not map-has-key($value, $key) {
-			// @warn '"#{$key}" key not in map: #{$keys}';
-			@return null;
-		}
-		$value: map-get($value, $key);
-	}
-	@return $value;
-}
-
 /* Merge Multiple Deep Maps
  * mergeMaps($map1, $map2, $map3)
  * Sass map-merge() is limited to 2 maps and not deep.
@@ -60,28 +44,6 @@
 		}
 	}
 	@return $map;
-}
-
-/* Map Set Prop (supports deep)
- * mapSet(
- *   $map to update,
- *   $keys to value,
- *   $new value
- * ) returns updated map
- *************************************/
-@function mapSetProp($map, $keys.../*, $value */) {
-	$map-list: ($map,);
-	$result: null;
-	@if length($keys) == 2 {
-		@return map-merge($map, (nth($keys, 1): nth($keys, -1)));
-	}
-	@for $i from 1 through length($keys) - 2 {
-		$map-list: append($map-list, map-get(nth($map-list, -1), nth($keys, $i)));
-	}
-	@for $i from length($map-list) through 1 {
-		$result: map-merge(nth($map-list, $i), (nth($keys, $i): if($i == length($map-list), nth($keys, -1), $result)));
-	}
-	@return $result;
 }
 
 /* Get Css Variables Map (technique for theming)
