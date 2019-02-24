@@ -1,0 +1,92 @@
+/**********
+ * POPOVER
+ **********/
+.popover {
+	position: absolute;
+	z-index: 1060;
+	max-width: 276px;
+	width: -moz-max-content; // firefox
+	width: max-content;
+	cursor: auto;
+	border: 1px solid mapGet($palette, greyLight);
+	background-color: mapGet($palette, white);
+	background-clip: padding-box;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, .1);
+	line-break: auto;
+	line-height: 21px;
+	word-break: break-word;
+	word-spacing: normal;
+	transition: opacity .15s linear;
+
+	&.hidden {
+		width: 0;
+		height: 0;
+		opacity: 0;
+		overflow: hidden;
+		visibility: hidden;
+		transition: visibility 0s linear .15s, opacity .15s linear;
+	}
+
+	.caption {
+		margin: 0;
+		padding: 6px 12px 4px 13px;
+		font-size: 13px;
+		letter-spacing: .1px;
+		text-transform: uppercase;
+		text-shadow: 1px 1px 4px mapGet($palette, white);
+		border-bottom: 1px solid mapGet($palette, greyLight);
+	}
+
+	.body {
+		font-size: 14px;
+	}
+}
+
+.rb-popover {
+	/* With Content
+	 ***************/
+	&.with-content .body {
+		padding: 11px 12px 12px 13px;
+	}
+
+	/* Options
+	 **********/
+	&.fit-content {
+		.popover {
+			max-width: none;
+		}
+	}
+
+	/* Positioning (default: right)
+	 **************/
+	&.right .popover {
+		left: calc(100% + 16px + 4px);
+	}
+	&.left .popover {
+		right: calc(100% + 16px + 4px);
+	}
+	&.top .popover {
+		bottom: calc(100% + 24px);
+		left: 50%;
+		transform: translateX(-50%);
+	}
+	&.bottom .popover {
+		top: calc(100% + 16px);
+		left: 50%;
+		transform: translateX(-50%);
+	}
+
+	&.left,
+	&.right {
+		&.with-content:not(.with-caption),
+		&.with-caption:not(.with-content) {
+			.popover {
+				top: calc(50% - 4px);
+				transform: translateY(-50%);
+				.pointer {
+					top: calc(50% - 8px);
+				}
+			}
+		}
+	}
+}

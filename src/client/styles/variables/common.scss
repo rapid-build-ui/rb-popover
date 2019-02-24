@@ -1,0 +1,29 @@
+/*****************************************
+ * COMMON CSS VARIABLES
+ * Applies to both light and dark themes.
+ *****************************************/
+$commonCssVars: (
+	// Borders (common for all kinds)
+	border-radius: 5px,
+
+	// Caption Background Colors
+	default-caption-bg:   mapGet($palette, xGreyLight),
+	danger-caption-bg:    mapGet($palette, redLight),
+	info-caption-bg:      mapGet($palette, turquoisLight),
+	success-caption-bg:   mapGet($palette, greenLight),
+	warning-caption-bg:   mapGet($palette, yellowLight),
+
+	// Text Colors
+	default-text-color:   mapGet($palette, greyDark),
+	danger-text-color:    mapGet($palette, redDark),
+	info-text-color:      mapGet($palette, turquoisDark),
+	success-text-color:   mapGet($palette, greenDark),
+	warning-text-color:   mapGet($palette, yellowDark),
+
+	// Trigger Colors
+	default-trigger-color:   mapGet($palette, grey),
+	danger-trigger-color:    mapGet($palette, red),
+	info-trigger-color:      mapGet($palette, turquois),
+	success-trigger-color:   mapGet($palette, green),
+	warning-trigger-color:   mapGet($palette, yellow)
+);

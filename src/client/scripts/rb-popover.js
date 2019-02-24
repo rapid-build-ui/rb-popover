@@ -1,10 +1,10 @@
 /*************
  * RB-POPOVER
  *************/
- import { props, html, RbBase } from '../../rb-base/scripts/rb-base.js';
- import view from '../../rb-base/scripts/view-directives.js';
+ import { RbBase, props, html } from '../../rb-base/scripts/rb-base.js';
+ import view                    from '../../rb-base/scripts/public/view/directives.js';
+ import template                from '../views/rb-popover.html';
  import '../../rb-button/scripts/rb-button.js';
- import template from '../views/rb-popover.html';
 
  export class RbPopover extends RbBase() {
 	/* Lifecycle
@@ -52,10 +52,12 @@
 			fitContent: props.boolean,
 			hover: props.boolean,
 			kind: props.string,
+			pin: props.boolean, // popover only closes by clicking trigger
 			unstyled: props.boolean,
 			iconKind: props.string,
 			iconSize: props.number,
 			iconSource: props.string,
+			iconValign: props.string,
 			position: Object.assign({}, props.string, {
 				default: 'right'
 			}),
@@ -177,17 +179,18 @@
 
 	/* Event Handlers
 	 *****************/
-	_clickToggle(e) { // :void
+	_clickToggle(evt) { // :void
 		this.showPopover = !this.showPopover;
 	}
-	_hoverToggle(e) { // :void
+	_hoverToggle(evt) { // :void
 		if (!this.hover) return;
 		if (this.showPopover) return;
 		this.showPopover = true;
 	}
-	_windowClickToggle(e) { // :void
+	_windowClickToggle(evt) { // :void
+		if (this.pin) return;
 		if (!this.showPopover) return;
-		const path = e.composedPath();
+		const path = evt.composedPath();
 		if (path.includes(this.rb.elms.popover)) return;
 		if (path.includes(this.rb.elms.trigger)) return;
 		this.showPopover = false;

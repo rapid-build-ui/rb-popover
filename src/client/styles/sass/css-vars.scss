@@ -1,0 +1,7 @@
+/********************
+ * CSS VARIABLES MAP
+ ********************/
+$component: 'rb-popover';
+$vars: (
+	common: getCssVarsMap($component, $commonCssVars)
+);

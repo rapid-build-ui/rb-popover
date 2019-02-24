@@ -2,15 +2,16 @@
 	rb-popover
 	${props.kind || 'default'}
 	${props.unstyled ? 'unstyled' : ''}
-	${props.caption ? 'with-caption' : 'no-caption'}
 	${props.fitContent ? 'fit-content' : ''}
-	${state.hasContent ? 'with-content' : ''}
+	${props.caption ? 'with-caption' : 'no-caption'}
+	${state.hasContent ? 'with-content' : 'no-content'}
 	${state.position ? state.position : props.position}">
 	<rb-button
 		kind="text"
 		icon-kind="${props.iconKind || 'info-circle'}"
-		icon-size="${props.iconSize || undefined}"
+		icon-size="${view.ifDefined(props.iconSize || undefined)}"
 		icon-source="${!props.iconKind ? 'solid' : props.iconSource}"
+		icon-valign="${view.ifDefined(props.iconValign || undefined)}"
 		@click="${this._clickToggle.bind(this)}"
 		@mouseover="${this._hoverToggle.bind(this)}">
 	</rb-button>

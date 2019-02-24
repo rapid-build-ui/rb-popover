@@ -6,13 +6,63 @@
 	@return ($px / $pxBase) + rem;
 }
 
+/* String Replace (recursively)
+ *******************************/
+@function strReplace($string, $search, $replace: '') {
+	$string: if(type-of($string) != 'string', #{$string}, $string); // convert to string
+	$index: str_index($string, $search);
+	@if not $index { @return $string; }
+	@return str_slice($string, 1, $index - 1) + $replace + strReplace(str-slice($string, $index + str-length($search)), $search, $replace);
+}
+
 /* Deep map-get
- * mapGet($colors, text, caption)
- *********************************/
+ * mapGet($styles, link, color)
+ *******************************/
 @function mapGet($map, $keys...) {
 	$value: $map;
 	@each $key in $keys {
 		$value: map-get($value, $key);
 	}
 	@return $value;
+}
+
+/* Merge Multiple Deep Maps
+ * mergeMaps($map1, $map2, $map3)
+ * Sass map-merge() is limited to 2 maps and not deep.
+ ******************************************************/
+@function mergeMaps($maps...) {
+	$map: ();
+	$tot: length($maps);
+	@for $i from 1 through $tot {
+		$current: nth($maps, $i);
+		@each $key, $value in $current {
+			// if value is a nested map and same key from map is a nested map as well
+			@if type-of($value) == 'map' and type-of(map-get($map, $key)) == 'map' {
+				$value: mergeMaps(map-get($map, $key), $value); // recursive extend
+			}
+			$map: map-merge($map, ($key: $value)); // merge current into map
+		}
+	}
+	@return $map;
+}
+
+/* Get Css Variables Map (technique for theming)
+ * Example:
+	$component: 'rb-nav'; // component name
+	$vars: (
+		common: getCssVarsMap($component, $commonCssVars),
+		light:  getCssVarsMap($component, $lightCssVars, 'light'),
+		dark:   getCssVarsMap($component, $darkCssVars, 'dark')
+	);
+ ******************************************************************/
+@function getCssVarsMap($component, $cssVarsMap, $theme: null) {
+	$theme: if($theme, #{$theme}-, $theme);                  // ex: light-
+	$component: --#{$component}-;                            // ex: --rb-nav-
+	$component: if($theme, $component + $theme, $component); // ex: --rb-nav-light-
+	$map: ();
+	@each $key, $val in $cssVarsMap {
+		$val: var(#{$component}#{$key}, $val); // ex: --rb-nav-default-link-font-size
+		$map: map-merge($map, ($key: $val));
+	}
+	@return $map;
 }

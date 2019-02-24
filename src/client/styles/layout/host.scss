@@ -1,0 +1,12 @@
+/*******
+ * HOST
+ *******/
+:host {
+	// paint causes popover not to show up in chrome
+	// layout causes vertical alignment issue in chrome v71.0.3+
+	contain: style;
+	display: inline-block;
+}
+:host([hidden]) {
+	display: none;
+}
