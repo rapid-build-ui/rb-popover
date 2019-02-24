@@ -1,3 +1,20 @@
+## [0.0.14](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.13...v0.0.14) (2019-02-24)
+
+
+### Features
+
+* **new api option:** icon-valign ([5dcb10f](https://github.com/rapid-build-ui/rb-popover/commit/5dcb10f))
+* **new api option pin:** popover only closes by clicking the trigger ([62dcfd0](https://github.com/rapid-build-ui/rb-popover/commit/62dcfd0))
+* **responsive:** ensure popover fits in small devices viewport ([2241fcb](https://github.com/rapid-build-ui/rb-popover/commit/2241fcb))
+* **styling:** set host to inline-block incase consumer wants to add bumpers ([af5d09f](https://github.com/rapid-build-ui/rb-popover/commit/af5d09f))
+
+
+### Dependencies
+
+* **bump:** deps rb-base v0.0.7 and rb-button v0.0.14 ([4e521c4](https://github.com/rapid-build-ui/rb-popover/commit/4e521c4))
+
+
+
 ## [0.0.13](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.12...v0.0.13) (2018-12-05)
 
 
