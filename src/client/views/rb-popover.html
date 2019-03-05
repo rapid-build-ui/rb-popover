@@ -8,19 +8,25 @@
 	${state.position ? state.position : props.position}">
 	<rb-button
 		kind="text"
+		?icon-burst="${props.iconBurst}"
+		?icon-pulse="${props.iconPulse}"
+		?icon-spin="${props.iconSpin}"
 		icon-kind="${props.iconKind || 'info-circle'}"
-		icon-size="${view.ifDefined(props.iconSize || undefined)}"
+		icon-size="${View.ifDefined(props.iconSize || undefined)}"
+		icon-flip="${View.ifDefined(props.iconFlip || undefined)}"
+		icon-speed="${View.ifDefined(props.iconSpeed || undefined)}"
+		icon-rotate="${View.ifDefined(props.iconRotate || undefined)}"
 		icon-source="${!props.iconKind ? 'solid' : props.iconSource}"
-		icon-valign="${view.ifDefined(props.iconValign || undefined)}"
+		icon-valign="${View.ifDefined(props.iconValign || undefined)}"
 		@click="${this._clickToggle.bind(this)}"
 		@mouseover="${this._hoverToggle.bind(this)}">
 	</rb-button>
 	<div
-		style="${view.styleMap(state.coords.popover)}"
-		class="popover ${view.classMap({
+		style="${View.styleMap(state.coords.popover)}"
+		class="popover ${View.classMap({
 			hidden: !props.showPopover || !this.rb.view.isReady
 		})}">
-		<em class="pointer" style="${view.styleMap(state.coords.pointer)}"></em>
+		<em class="pointer" style="${View.styleMap(state.coords.pointer)}"></em>
 		${props.caption ? html`<h3 class="caption">${props.caption}</h3>` : null}
 		<div class="body">
 			<slot @slotchange="${this._hasContent.bind(this)}"></slot>
