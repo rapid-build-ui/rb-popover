@@ -2,7 +2,8 @@
  * RB-POPOVER
  *************/
  import { RbBase, props, html } from '../../rb-base/scripts/rb-base.js';
- import view                    from '../../rb-base/scripts/public/view/directives.js';
+ import Converter               from '../../rb-base/scripts/public/props/converters.js';
+ import View                    from '../../rb-base/scripts/public/view/directives.js';
  import template                from '../views/rb-popover.html';
  import '../../rb-button/scripts/rb-button.js';
 
@@ -54,17 +55,27 @@
 			kind: props.string,
 			pin: props.boolean, // popover only closes by clicking trigger
 			unstyled: props.boolean,
+			iconFlip: props.string,
 			iconKind: props.string,
 			iconSize: props.number,
+			iconSpeed: props.number,
+			iconRotate: props.number,
 			iconSource: props.string,
 			iconValign: props.string,
 			position: Object.assign({}, props.string, {
 				default: 'right'
 			}),
 			showPopover: Object.assign({}, props.boolean, {
-				deserialize(val) {
-					return /^true$/i.test(val);
-				}
+				deserialize: Converter.boolean
+			}),
+			iconBurst: Object.assign({}, props.boolean, {
+				deserialize: Converter.valueless
+			}),
+			iconPulse: Object.assign({}, props.boolean, {
+				deserialize: Converter.valueless
+			}),
+			iconSpin: Object.assign({}, props.boolean, {
+				deserialize: Converter.valueless
 			})
 		}
 	}
