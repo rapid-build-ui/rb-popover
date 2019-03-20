@@ -5,25 +5,46 @@
 $commonCssVars: (
 	// Borders (common for all kinds)
 	border-radius: 5px,
+	trigger-opacity: 1,
+	trigger-opacity-hover: 1,
+	trigger-transition: all .15s ease-in-out,
 
 	// Caption Background Colors
-	default-caption-bg:   mapGet($palette, xGreyLight),
-	danger-caption-bg:    mapGet($palette, redLight),
-	info-caption-bg:      mapGet($palette, turquoisLight),
-	success-caption-bg:   mapGet($palette, greenLight),
-	warning-caption-bg:   mapGet($palette, yellowLight),
+	default-caption-bg: mapGet($palette, xBlueLight),
+	danger-caption-bg:  mapGet($palette, xRedLight),
+	info-caption-bg:    mapGet($palette, xTurquoisLight),
+	neutral-caption-bg: mapGet($palette, xxGreyLight),
+	success-caption-bg: mapGet($palette, xGreenLight),
+	warning-caption-bg: mapGet($palette, xYellowLight),
 
-	// Text Colors
-	default-text-color:   mapGet($palette, greyDark),
-	danger-text-color:    mapGet($palette, redDark),
-	info-text-color:      mapGet($palette, turquoisDark),
-	success-text-color:   mapGet($palette, greenDark),
-	warning-text-color:   mapGet($palette, yellowDark),
+	// Caption Colors
+	default-caption-color: mapGet($palette, blueDark),
+	danger-caption-color:  mapGet($palette, redDark),
+	info-caption-color:    mapGet($palette, turquoisDark),
+	neutral-caption-color: mapGet($palette, greyDark),
+	success-caption-color: mapGet($palette, greenDark),
+	warning-caption-color: mapGet($palette, yellowDark),
+
+	// Content Colors
+	default-content-color: mapGet($palette, greyDark),
+	danger-content-color:  mapGet($palette, greyDark),
+	info-content-color:    mapGet($palette, greyDark),
+	neutral-content-color: mapGet($palette, greyDark),
+	success-content-color: mapGet($palette, greyDark),
+	warning-content-color: mapGet($palette, greyDark),
 
 	// Trigger Colors
-	default-trigger-color:   mapGet($palette, grey),
-	danger-trigger-color:    mapGet($palette, red),
-	info-trigger-color:      mapGet($palette, turquois),
-	success-trigger-color:   mapGet($palette, green),
-	warning-trigger-color:   mapGet($palette, yellow)
+	default-trigger-color: mapGet($palette, blue),
+	danger-trigger-color:  mapGet($palette, red),
+	info-trigger-color:    mapGet($palette, turquois),
+	neutral-trigger-color: mapGet($palette, grey),
+	success-trigger-color: mapGet($palette, green),
+	warning-trigger-color: mapGet($palette, yellow),
+
+	default-trigger-color-hover: mapGet($palette, blueLight),
+	danger-trigger-color-hover:  mapGet($palette, redLight),
+	info-trigger-color-hover:    mapGet($palette, turquoisLight),
+	neutral-trigger-color-hover: mapGet($palette, greyLight),
+	success-trigger-color-hover: mapGet($palette, greenLight),
+	warning-trigger-color-hover: mapGet($palette, yellowLight)
 );

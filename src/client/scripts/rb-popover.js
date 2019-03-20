@@ -52,9 +52,7 @@
 			caption: props.string,
 			fitContent: props.boolean,
 			hover: props.boolean,
-			kind: props.string,
 			pin: props.boolean, // popover only closes by clicking trigger
-			unstyled: props.boolean,
 			iconFlip: props.string,
 			iconKind: props.string,
 			iconSize: props.number,
@@ -62,6 +60,10 @@
 			iconRotate: props.number,
 			iconSource: props.string,
 			iconValign: props.string,
+			inheritColor: props.boolean,
+			kind: Object.assign({}, props.string, {
+				default: 'default'
+			}),
 			position: Object.assign({}, props.string, {
 				default: 'right'
 			}),

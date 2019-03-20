@@ -1,13 +1,12 @@
 <div class="
 	rb-popover
-	${props.kind || 'default'}
-	${props.unstyled ? 'unstyled' : ''}
+	${props.kind}
 	${props.fitContent ? 'fit-content' : ''}
 	${props.caption ? 'with-caption' : 'no-caption'}
 	${state.hasContent ? 'with-content' : 'no-content'}
 	${state.position ? state.position : props.position}">
 	<rb-button
-		kind="text"
+		kind="${props.kind}"
 		?icon-burst="${props.iconBurst}"
 		?icon-pulse="${props.iconPulse}"
 		?icon-spin="${props.iconSpin}"
@@ -18,6 +17,7 @@
 		icon-rotate="${View.ifDefined(props.iconRotate || undefined)}"
 		icon-source="${!props.iconKind ? 'solid' : props.iconSource}"
 		icon-valign="${View.ifDefined(props.iconValign || undefined)}"
+		text='${props.inheritColor ? `{ "inherit": "color"}` : ""}'
 		@click="${this._clickToggle.bind(this)}"
 		@mouseover="${this._hoverToggle.bind(this)}">
 	</rb-button>

@@ -18,13 +18,13 @@
 	&::before {
 		top: 7px;
 		left: -5px;
-		border-bottom: 1px solid mapGet($palette, greyLight);
+		border-bottom: 1px solid mapGet($palette, xGreyLight);
 		transform: rotate(63deg);
 	}
 	&::after {
 		top: 6px;
 		left: -13px;
-		border-top: 1px solid mapGet($palette, greyLight);
+		border-top: 1px solid mapGet($palette, xGreyLight);
 		transform: rotate(-63deg);
 	}
 }
