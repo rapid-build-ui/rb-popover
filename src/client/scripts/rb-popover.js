@@ -66,7 +66,7 @@
 				deserialize: Converter.boolean
 			}),
 			position: Object.assign({}, props.string, {
-				default: 'right'
+				default: 'top'
 			}),
 			iconBurst: Object.assign({}, props.boolean, {
 				deserialize: Converter.valueless
