@@ -39,9 +39,7 @@
 			caption: this.shadowRoot.querySelector('.caption')
 		});
 		this._hasContent(this.shadowRoot.querySelector('slot'));
-		this.rb.events.add(window, 'click touchstart', this._windowClickToggle, {
-			capture: true // so event fires first
-		});
+		this._attachEvents();
 		if (this.open) this.triggerUpdate();
 	}
 
@@ -159,6 +157,15 @@
 		if (!this.open) return;
 		if (!this.rb.view.isReady) return;
 		this._setPosition();
+	}
+
+	/* Event Management
+	 *******************/
+	_attachEvents() { // :void
+		this.rb.elms.trigger.onclick = this._clickToggle.bind(this);
+		this.rb.events.add(window, 'click touchstart', this._windowClickToggle, {
+			capture: true // so event fires first
+		});
 	}
 
 	/* Slot Event Handlers
