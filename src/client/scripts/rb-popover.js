@@ -163,6 +163,7 @@
 	 *******************/
 	_attachEvents() { // :void
 		this.rb.elms.trigger.onclick = this._clickToggle.bind(this);
+		this.rb.events.add(this.rb.elms.trigger, 'mouseover', this._hoverToggle);
 		this.rb.events.add(window, 'click touchstart', this._windowClickToggle, {
 			capture: true // so event fires first
 		});

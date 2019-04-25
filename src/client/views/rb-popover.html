@@ -17,8 +17,7 @@
 		icon-rotate="${View.ifDefined(props.iconRotate || undefined)}"
 		icon-source="${!props.iconKind ? 'solid' : props.iconSource}"
 		icon-valign="${View.ifDefined(props.iconValign || undefined)}"
-		text='${props.inheritColor ? `{ "inherit": "color"}` : ""}'
-		@mouseover="${this._hoverToggle.bind(this)}">
+		text='${props.inheritColor ? `{ "inherit": "color"}` : ""}'>
 	</rb-button>
 	<div
 		style="${View.styleMap(state.coords.popover)}"
