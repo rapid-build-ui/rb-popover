@@ -24,7 +24,7 @@
 	<div
 		style="${View.styleMap(state.coords.popover)}"
 		class="popover ${View.classMap({
-			hidden: !props.showPopover || !this.rb.view.isReady
+			hidden: !props.open || !this.rb.view.isReady
 		})}">
 		<em class="pointer" style="${View.styleMap(state.coords.pointer)}"></em>
 		${props.caption ? html`<h3 class="caption">${props.caption}</h3>` : null}

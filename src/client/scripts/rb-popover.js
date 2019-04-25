@@ -42,7 +42,7 @@
 		this.rb.events.add(window, 'click touchstart', this._windowClickToggle, {
 			capture: true // so event fires first
 		});
-		if (this.showPopover) this.triggerUpdate();
+		if (this.open) this.triggerUpdate();
 	}
 
 	/* Properties
@@ -64,11 +64,11 @@
 			kind: Object.assign({}, props.string, {
 				default: 'default'
 			}),
+			open: Object.assign({}, props.boolean, {
+				deserialize: Converter.boolean
+			}),
 			position: Object.assign({}, props.string, {
 				default: 'right'
-			}),
-			showPopover: Object.assign({}, props.boolean, {
-				deserialize: Converter.boolean
 			}),
 			iconBurst: Object.assign({}, props.boolean, {
 				deserialize: Converter.valueless
@@ -156,7 +156,7 @@
 	}
 	rendered() { // :void
 		super.rendered && super.rendered();
-		if (!this.showPopover) return;
+		if (!this.open) return;
 		if (!this.rb.view.isReady) return;
 		this._setPosition();
 	}
@@ -193,20 +193,20 @@
 	/* Event Handlers
 	 *****************/
 	_clickToggle(evt) { // :void
-		this.showPopover = !this.showPopover;
+		this.open = !this.open;
 	}
 	_hoverToggle(evt) { // :void
 		if (!this.hover) return;
-		if (this.showPopover) return;
-		this.showPopover = true;
+		if (this.open) return;
+		this.open = true;
 	}
 	_windowClickToggle(evt) { // :void
 		if (this.pin) return;
-		if (!this.showPopover) return;
+		if (!this.open) return;
 		const path = evt.composedPath();
 		if (path.includes(this.rb.elms.popover)) return;
 		if (path.includes(this.rb.elms.trigger)) return;
-		this.showPopover = false;
+		this.open = false;
 	}
 
 	/* Template
