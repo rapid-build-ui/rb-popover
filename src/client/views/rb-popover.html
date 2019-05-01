@@ -10,14 +10,22 @@
 		?icon-burst="${props.iconBurst}"
 		?icon-pulse="${props.iconPulse}"
 		?icon-spin="${props.iconSpin}"
-		icon-kind="${props.iconKind || 'info-circle'}"
 		icon-size="${View.ifDefined(props.iconSize || undefined)}"
 		icon-flip="${View.ifDefined(props.iconFlip || undefined)}"
 		icon-speed="${View.ifDefined(props.iconSpeed || undefined)}"
 		icon-rotate="${View.ifDefined(props.iconRotate || undefined)}"
-		icon-source="${!props.iconKind ? 'solid' : props.iconSource}"
 		icon-valign="${View.ifDefined(props.iconValign || undefined)}"
-		text='${props.inheritColor ? `{ "inherit": "color"}` : ""}'>
+		text='${props.inheritColor ? `{ "inherit": "color"}` : ""}'
+		icon-kind="${
+			props.open && props.pin
+				? 'thumbtack'
+				: props.iconKind || 'info-circle'
+		}"
+		icon-source="${
+			props.open && props.pin
+				? 'solid'
+				: props.iconKind ? props.iconSource : 'solid'
+		}">
 	</rb-button>
 	<div
 		style="${View.styleMap(state.coords.popover)}"
