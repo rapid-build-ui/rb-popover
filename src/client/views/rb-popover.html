@@ -16,6 +16,11 @@
 		icon-rotate="${View.ifDefined(props.iconRotate || undefined)}"
 		icon-valign="${View.ifDefined(props.iconValign || undefined)}"
 		text='${props.inheritColor ? `{ "inherit": "color"}` : ""}'
+		title="${View.ifDefined(
+			props.open && props.pin
+				? 'Pinned click to close.'
+				: undefined
+		)}"
 		icon-kind="${
 			props.open && props.pin
 				? 'thumbtack'
