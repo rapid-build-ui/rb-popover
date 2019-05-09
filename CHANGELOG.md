@@ -6,12 +6,6 @@
 * **popover top position:** from being to far from trigger when inside an element with large line-height ([82885d7](https://github.com/rapid-build-ui/rb-popover/commit/82885d7))
 
 
-### Code Refactoring
-
-* **api position option:** change default position from right to top ([7575fe0](https://github.com/rapid-build-ui/rb-popover/commit/7575fe0))
-* **api open option:** change show-popover to open to be consistent with other components ([e2be615](https://github.com/rapid-build-ui/rb-popover/commit/e2be615))
-
-
 ### Features
 
 * **new api kind neutral:** create it and make the default kind blue ([9fa3c4a](https://github.com/rapid-build-ui/rb-popover/commit/9fa3c4a))
@@ -27,21 +21,21 @@
 
 To migrate the code follow the examples below:
 
-1. **api position option**
+1. **api open option:** change show-popover to open to be consistent with other components ([e2be615](https://github.com/rapid-build-ui/rb-popover/commit/e2be615))
 
-**Before:**  
-nothing to position popover right
+	**Before:**  
+	show-popover=true
 
-**Now:**  
-position=right (if you want it right)
+	**Now:**  
+	open=true
 
-2. **api open option**
+2. **api position option:** change default position from right to top ([7575fe0](https://github.com/rapid-build-ui/rb-popover/commit/7575fe0))
 
-**Before:**  
-show-popover=true
+	**Before:**  
+	nothing to position popover right
 
-**Now:**  
-open=true
+	**Now:**  
+	position=right (if you want it right)
 
 
 
