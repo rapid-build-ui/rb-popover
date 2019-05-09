@@ -1,3 +1,50 @@
+## [0.0.16](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.15...v0.0.16) (2019-05-09)
+
+
+### Bug Fixes
+
+* **popover top position:** from being to far from trigger when inside an element with large line-height ([82885d7](https://github.com/rapid-build-ui/rb-popover/commit/82885d7))
+
+
+### Code Refactoring
+
+* **api:** change default position from right to top ([7575fe0](https://github.com/rapid-build-ui/rb-popover/commit/7575fe0))
+* **api:** change show-popover to open to be consistent with other components ([e2be615](https://github.com/rapid-build-ui/rb-popover/commit/e2be615))
+
+
+### Features
+
+* **new api kind neutral:** create it and make the default kind blue ([9fa3c4a](https://github.com/rapid-build-ui/rb-popover/commit/9fa3c4a))
+* **pin option:** display thumbtack icon when popover is open and pinned ([1a503c7](https://github.com/rapid-build-ui/rb-popover/commit/1a503c7))
+
+
+### Dependencies
+
+* **bump:** deps rb-base v0.0.9 and rb-button v0.0.16 ([40fb429](https://github.com/rapid-build-ui/rb-popover/commit/40fb429))
+
+
+### BREAKING CHANGES
+
+To migrate the code follow the examples below:
+
+1. **api position option**
+
+**Before:**  
+nothing to position popover right
+
+**Now:**  
+position=right (if you want it right)
+
+2. **api open option**
+
+**Before:**  
+show-popover=true
+
+**Now:**  
+open=true
+
+
+
 ## [0.0.15](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.14...v0.0.15) (2019-03-05)
 
 
