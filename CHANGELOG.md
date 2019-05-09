@@ -8,8 +8,8 @@
 
 ### Code Refactoring
 
-* **api:** change default position from right to top ([7575fe0](https://github.com/rapid-build-ui/rb-popover/commit/7575fe0))
-* **api:** change show-popover to open to be consistent with other components ([e2be615](https://github.com/rapid-build-ui/rb-popover/commit/e2be615))
+* **api position option:** change default position from right to top ([7575fe0](https://github.com/rapid-build-ui/rb-popover/commit/7575fe0))
+* **api open option:** change show-popover to open to be consistent with other components ([e2be615](https://github.com/rapid-build-ui/rb-popover/commit/e2be615))
 
 
 ### Features
