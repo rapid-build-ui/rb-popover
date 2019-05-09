@@ -39,10 +39,8 @@
 			caption: this.shadowRoot.querySelector('.caption')
 		});
 		this._hasContent(this.shadowRoot.querySelector('slot'));
-		this.rb.events.add(window, 'click touchstart', this._windowClickToggle, {
-			capture: true // so event fires first
-		});
-		if (this.showPopover) this.triggerUpdate();
+		this._attachEvents();
+		if (this.open) this.triggerUpdate();
 	}
 
 	/* Properties
@@ -52,9 +50,7 @@
 			caption: props.string,
 			fitContent: props.boolean,
 			hover: props.boolean,
-			kind: props.string,
 			pin: props.boolean, // popover only closes by clicking trigger
-			unstyled: props.boolean,
 			iconFlip: props.string,
 			iconKind: props.string,
 			iconSize: props.number,
@@ -62,11 +58,15 @@
 			iconRotate: props.number,
 			iconSource: props.string,
 			iconValign: props.string,
-			position: Object.assign({}, props.string, {
-				default: 'right'
+			inheritColor: props.boolean,
+			kind: Object.assign({}, props.string, {
+				default: 'default'
 			}),
-			showPopover: Object.assign({}, props.boolean, {
+			open: Object.assign({}, props.boolean, {
 				deserialize: Converter.boolean
+			}),
+			position: Object.assign({}, props.string, {
+				default: 'top'
 			}),
 			iconBurst: Object.assign({}, props.boolean, {
 				deserialize: Converter.valueless
@@ -154,9 +154,19 @@
 	}
 	rendered() { // :void
 		super.rendered && super.rendered();
-		if (!this.showPopover) return;
+		if (!this.open) return;
 		if (!this.rb.view.isReady) return;
 		this._setPosition();
+	}
+
+	/* Event Management
+	 *******************/
+	_attachEvents() { // :void
+		this.rb.elms.trigger.onclick = this._clickToggle.bind(this);
+		this.rb.events.add(this.rb.elms.trigger, 'mouseover', this._hoverToggle);
+		this.rb.events.add(window, 'click touchstart', this._windowClickToggle, {
+			capture: true // so event fires first
+		});
 	}
 
 	/* Slot Event Handlers
@@ -191,20 +201,20 @@
 	/* Event Handlers
 	 *****************/
 	_clickToggle(evt) { // :void
-		this.showPopover = !this.showPopover;
+		this.open = !this.open;
 	}
 	_hoverToggle(evt) { // :void
 		if (!this.hover) return;
-		if (this.showPopover) return;
-		this.showPopover = true;
+		if (this.open) return;
+		this.open = true;
 	}
 	_windowClickToggle(evt) { // :void
 		if (this.pin) return;
-		if (!this.showPopover) return;
+		if (!this.open) return;
 		const path = evt.composedPath();
 		if (path.includes(this.rb.elms.popover)) return;
 		if (path.includes(this.rb.elms.trigger)) return;
-		this.showPopover = false;
+		this.open = false;
 	}
 
 	/* Template

@@ -16,29 +16,36 @@
 			border-top-left-radius: $cRadius;
 			border-top-right-radius: $cRadius;
 		}
+		rb-button {
+			--rb-button-text-button-opacity: #{mapGet($vars, common, trigger-opacity)};
+			--rb-button-text-button-opacity-hover: #{mapGet($vars, common, trigger-opacity-hover)};
+			--rb-button-text-button-transition: #{mapGet($vars, common, trigger-transition)};
+		}
 	}
 
 	// Kinds
-	$kinds: default, danger, info, success, warning;
+	$kinds: default, danger, info, neutral, success, warning;
 	@each $kind in $kinds {
 		.#{$kind} {
 			&.with-caption {
-				&.bottom,
-				&.no-content {
-					.pointer {
-						$bgColor: mapGet($vars, common, #{$kind}-caption-bg);
-						border-bottom-color: $bgColor; // match caption bg
+				&.bottom, &.no-content {
+					.pointer { // match caption bg
+						border-bottom-color: mapGet($vars, common, #{$kind}-caption-bg);
 					}
 				}
 			}
 			.popover {
-				color: mapGet($vars, common, #{$kind}-text-color);
 				.caption {
+					color: mapGet($vars, common, #{$kind}-caption-color);
 					background-color: mapGet($vars, common, #{$kind}-caption-bg);
+				}
+				.body {
+					color: mapGet($vars, common, #{$kind}-content-color);
 				}
 			}
 			rb-button {
-				color: mapGet($vars, common, #{$kind}-trigger-color);
+				--rb-button-#{$kind}-text-button-color: #{mapGet($vars, common, #{$kind}-trigger-color)};
+				--rb-button-#{$kind}-text-button-color-hover: #{mapGet($vars, common, #{$kind}-trigger-color-hover)};
 			}
 		}
 	}
