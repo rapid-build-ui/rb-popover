@@ -29,6 +29,7 @@
 				}
 			}
 		};
+		this.rb.events.host.add(['click']);
 	}
 	viewReady() {
 		super.viewReady && super.viewReady();
@@ -78,6 +79,12 @@
 				deserialize: Converter.valueless
 			})
 		}
+	}
+
+	/* Getters
+	 **********/
+	get _hasOnclick() { // :boolean (readonly)
+		return !!this.rb.events.host.events.click;
 	}
 
 	/* Dimensions & Coordinates
@@ -198,9 +205,18 @@
 		}
 	}
 
+	/* Actions
+	 **********/
+	async _runOnclick(evt) { // :string | undefined
+		if (this.open) return;
+		const result = await this.rb.events.host.run(evt);
+		return result;
+	}
+
 	/* Event Handlers
 	 *****************/
-	_clickToggle(evt) { // :void
+	async _clickToggle(evt) { // :void
+		if (this._hasOnclick) await this._runOnclick(evt);
 		this.open = !this.open;
 	}
 	_hoverToggle(evt) { // :void
