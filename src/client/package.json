@@ -37,7 +37,7 @@
   },
   "flat": true,
   "dependencies": {
-    "@rapid-build-ui/rb-base": "^0.0.9",
-    "@rapid-build-ui/rb-button": "^0.0.16"
+    "@rapid-build-ui/rb-base": "^0.0.10",
+    "@rapid-build-ui/rb-button": "^0.0.17"
   }
 }
