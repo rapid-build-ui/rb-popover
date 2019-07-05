@@ -1,3 +1,23 @@
+## [0.0.17](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.16...v0.0.17) (2019-07-05)
+
+
+### Bug Fixes
+
+* **positioning:** bump the z-index to 200 so it appears over nav ([9ced323](https://github.com/rapid-build-ui/rb-popover/commit/9ced323))
+
+
+### Features
+
+* **onclick:** new api option, execute a function when opening popover via click ([dde7b02](https://github.com/rapid-build-ui/rb-popover/commit/dde7b02))
+* **version:** add to component properties accessible via this.version ([42d285f](https://github.com/rapid-build-ui/rb-popover/commit/42d285f))
+
+
+### Dependencies
+
+* **bump:** deps rb-base v0.0.10 and rb-button v0.0.17 ([6f51363](https://github.com/rapid-build-ui/rb-popover/commit/6f51363))
+
+
+
 ## [0.0.16](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.15...v0.0.16) (2019-05-09)
 
 
