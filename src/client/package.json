@@ -1,6 +1,6 @@
 {
   "name": "@rapid-build-ui/rb-popover",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "main": "scripts/rb-popover.js",
   "description": "Rapid Build UI Web Component: rb-popover",
   "license": "MIT",

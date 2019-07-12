@@ -12,7 +12,7 @@
 	 ************/
 	constructor() {
 		super();
-		this.version = '0.0.17';
+		this.version = '0.0.18';
 		this.state = {
 			coords: { popover: {}, pointer: {} },
 			hasContent: false,
