@@ -1,9 +1,9 @@
 /*************
  * RB-POPOVER
  *************/
- import { RbBase, props, html } from '../../rb-base/scripts/rb-base.js';
- import Converter               from '../../rb-base/scripts/public/props/converters.js';
- import View                    from '../../rb-base/scripts/public/view/directives.js';
+ import { RbBase, props, html } from '../../base/scripts/base.js';
+ import Converter               from '../../base/scripts/public/props/converters.js';
+ import View                    from '../../base/scripts/public/view/directives.js';
  import template                from '../views/rb-popover.html';
  import '../../rb-button/scripts/rb-button.js';
 
