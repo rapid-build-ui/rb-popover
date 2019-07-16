@@ -1,6 +1,6 @@
 {
   "name": "rb-popover-project",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "scripts": {
     "build-continuous": "node node_modules/@rapid-build-ui/cli/ci component continuous",
     "build-release": "node node_modules/@rapid-build-ui/cli/ci component release",

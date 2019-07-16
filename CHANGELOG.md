@@ -1,3 +1,12 @@
+## [0.0.19](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.18...v0.0.19) (2019-07-16)
+
+
+### Dependencies
+
+* **bump:** deps base v0.0.12 and rb-button v0.0.19 ([7d293a5](https://github.com/rapid-build-ui/rb-popover/commit/7d293a5))
+
+
+
 ## [0.0.18](https://github.com/rapid-build-ui/rb-popover/compare/v0.0.17...v0.0.18) (2019-07-12)
 
 
