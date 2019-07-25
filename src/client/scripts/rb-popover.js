@@ -3,6 +3,7 @@
  *************/
  import { RbBase, props, html } from '../../base/scripts/base.js';
  import Converter               from '../../base/scripts/public/props/converters.js';
+ import Type                    from '../../base/scripts/public/services/type.js';
  import View                    from '../../base/scripts/public/view/directives.js';
  import template                from '../views/rb-popover.html';
  import '../../rb-button/scripts/rb-button.js';
@@ -14,6 +15,7 @@
 		super();
 		this.version = '0.0.19';
 		this.state = {
+			openWithActionOnInit: false,
 			coords: { popover: {}, pointer: {} },
 			hasContent: false,
 			position: null, // needed to set back original position
@@ -42,7 +44,11 @@
 		});
 		this._hasContent(this.shadowRoot.querySelector('slot'));
 		this._attachEvents();
-		if (this.open) this.triggerUpdate();
+		if (!this.open) return;
+		if (!this._hasOnclick) return this.triggerUpdate();
+		this.state.openWithActionOnInit = true; // open on init with action
+		this.open = false; // close and wait for _clickToggle() to open from trigger click
+		this.rb.elms.trigger.click();
 	}
 
 	/* Properties
@@ -82,10 +88,29 @@
 		}
 	}
 
+	/* Helpers
+	 **********/
+	emitToggleEvents(prevOpen) { // :boolean (runs in updating())
+		if (prevOpen === this.open) return false;
+		if (Type.is.undefined(prevOpen) && !this.open) return false; // init state
+		if (Type.is.undefined(prevOpen) && this.open && this._hasOnclick) return false; // wait for action on init to run
+		if (this.state.openWithActionOnInit) return false; // see viewReady()
+		return true;
+	}
+
 	/* Getters
 	 **********/
 	get _hasOnclick() { // :boolean (readonly)
 		return !!this.rb.events.host.events.click;
+	}
+
+	/* Observer
+	 ***********/
+	updating(prevProps, prevState) { // :void
+		if (!this.emitToggleEvents(prevProps.open)) return;
+		const evtType = this.open ? 'open' : 'close';
+		this.rb.events.emit(this, evtType);
+		this.rb.events.emit(this, 'toggled', { detail: { open: this.open }});
 	}
 
 	/* Dimensions & Coordinates
@@ -218,6 +243,7 @@
 	 *****************/
 	async _clickToggle(evt) { // :void
 		if (this._hasOnclick) await this._runOnclick(evt);
+		this.state.openWithActionOnInit = false;
 		this.open = !this.open;
 	}
 	_hoverToggle(evt) { // :void
