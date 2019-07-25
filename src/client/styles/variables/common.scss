@@ -3,6 +3,10 @@
  * Applies to both light and dark themes.
  *****************************************/
 $commonCssVars: (
+	// Font Family
+	caption-font-family: mapGet($fonts, default),
+	content-font-family: mapGet($fonts, default),
+
 	// Borders (common for all kinds)
 	border-radius: 5px,
 	trigger-opacity: 1,

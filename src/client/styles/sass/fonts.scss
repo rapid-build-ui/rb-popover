@@ -1,0 +1,28 @@
+/********
+ * FONTS
+ ********/
+$fonts: (
+	/****************************************************
+	 * OPERATING SYSTEMS
+	 * -------------------------------------------------
+	 * mac:      Helvetica Neue
+	 * windows:  Segoe UI | Microsoft Sans Serif
+	 * android:  Roboto
+	 * fallback: sans-serif
+	 * -------------------------------------------------
+	 * Supported Font Weights (400 normal | 700 bold)
+	 * -------------------------------------------------
+	 * Helvetica Neue:       300 | 400 | 500 | 600
+	 * Microsoft Sans Serif: 400 | 600 (unused)
+	 * Roboto:               300 | 400 | 500 | 700 | 900
+	 * Segoe UI:             300 | 400 | 500 | 700 | 800
+	 * sans-serif (mac):     300 | 400 | 600
+	 * sans-serif (windows): 300 | 600 | 800
+	 ****************************************************/
+	default: (
+		'Helvetica Neue',
+		Roboto,
+		'Segoe UI',
+		sans-serif
+	)
+);

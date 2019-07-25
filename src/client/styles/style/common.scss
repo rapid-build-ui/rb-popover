@@ -6,6 +6,8 @@
 	.rb-popover {
 		$radius: mapGet($vars, common, border-radius);
 		$cRadius: calc(#{$radius} - 1px);
+		.caption { font-family: mapGet($vars, common, caption-font-family); }
+		.body    { font-family: mapGet($vars, common, content-font-family); }
 		.popover {
 			border-radius: $radius;
 		}
